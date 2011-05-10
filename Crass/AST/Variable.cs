@@ -11,7 +11,8 @@ namespace Crass.AST
 
         public override void Emit(Context context, StringBuilder output)
         {
-            output.Append(Name);
+            var value = context[Name];
+            value.Emit(context, output);
         }
 
         internal static bool TryParse(Queue<string> remainingWords, out Variable variable)
