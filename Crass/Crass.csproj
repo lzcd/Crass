@@ -42,9 +42,9 @@
   <ItemGroup>
     <Compile Include="AST\Block.cs" />
     <Compile Include="AST\Script.cs" />
-    <Compile Include="AST\VariableExpression.cs" />
+    <Compile Include="AST\Expression.cs" />
     <Compile Include="AST\Node.cs" />
-    <Compile Include="AST\Property.cs" />
+    <Compile Include="AST\PropertyAssignment.cs" />
     <Compile Include="AST\Selector.cs" />
     <Compile Include="AST\VariableAssignment.cs" />
     <Compile Include="Host.cs" />

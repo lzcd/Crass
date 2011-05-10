@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Crass.AST
 {
-    class VariableExpression : Node
+    class Expression : Node
     {
-        internal static bool TryParse(Queue<string> remainingWords, out VariableExpression expression)
+        internal static bool TryParse(Queue<string> remainingWords, out Expression expression)
         {
-            expression = new VariableExpression();
+            expression = new Expression();
             while (remainingWords.Peek() != ";")
             {
                 var word = remainingWords.Dequeue();
@@ -24,7 +24,7 @@ namespace Crass.AST
 
         public List<Node> Children { get; private set; }
 
-        public VariableExpression()
+        public Expression()
         {
             Children = new List<Node>();
         }

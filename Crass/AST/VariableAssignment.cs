@@ -17,8 +17,8 @@ namespace Crass.AST
 
             var name = remainingWords.Dequeue();
 
-            VariableExpression expression;
-            if (!VariableExpression.TryParse(remainingWords, out expression))
+            Expression expression;
+            if (!Expression.TryParse(remainingWords, out expression))
             {
                 return false;
             }
@@ -29,7 +29,7 @@ namespace Crass.AST
 
         public string Name { get; set; }
 
-        public VariableExpression Expression { get; set; }
+        public Expression Expression { get; set; }
 
     }
 }

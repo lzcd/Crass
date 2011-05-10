@@ -16,18 +16,27 @@ namespace Crass.AST
                 VariableAssignment variableAssignment;
                 if (VariableAssignment.TryParse(remainingWords, out variableAssignment))
                 {
+                    script.Children.Add(variableAssignment);
                     continue;
                 }
 
                 Selector selector;
                 if (Selector.TryParse(remainingWords, out selector))
                 {
+                    script.Children.Add(selector);
                     continue;
                 }
             }
             while (remainingWords.Count > 0);
 
             return true;
+        }
+
+        public List<Node> Children { get; set; }
+
+        public Script()
+        {
+            Children = new List<Node>();
         }
     }
 }

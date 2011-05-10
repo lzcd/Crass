@@ -14,8 +14,19 @@ namespace Crass.AST
                 block = null;
                 return false;
             }
+            remainingWords.Dequeue();
 
             block = new Block();
+            while (remainingWords.Peek() != "}")
+            {
+                PropertyAssignment property;
+                if (PropertyAssignment.TryParse(remainingWords, out property))
+                {
+                    block.Children.Add(property);
+                    continue;
+                }
+            }
+            remainingWords.Dequeue();
 
             return true;
         }
