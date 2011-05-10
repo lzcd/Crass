@@ -40,6 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AST\VariableExpression.cs" />
+    <Compile Include="AST\Node.cs" />
+    <Compile Include="AST\Property.cs" />
+    <Compile Include="AST\Selector.cs" />
+    <Compile Include="AST\VariableAssignment.cs" />
     <Compile Include="Host.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
