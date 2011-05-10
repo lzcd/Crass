@@ -7,6 +7,13 @@ namespace Crass.AST
 {
     class Unit : Node
     {
+        public string Text { get; set; }
+
+        public override void Emit(Context context, StringBuilder output)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static bool TryParse(Queue<string> remainingWords, out Unit unit)
         {
             int firstDigit;
@@ -20,6 +27,6 @@ namespace Crass.AST
             return true;
         }
 
-        public string Text { get; set; }
+       
     }
 }

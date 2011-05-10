@@ -16,7 +16,12 @@ namespace Crass
                 return null;
             }
 
-            return null;
+            var context = new Context();
+            var output = new StringBuilder();
+            
+            script.Emit(context, output);
+
+            return output.ToString();
         }
 
        

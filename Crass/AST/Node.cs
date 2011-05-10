@@ -5,7 +5,9 @@ using System.Text;
 
 namespace Crass.AST
 {
-    class Node
+    abstract class Node
     {
+        public abstract void Emit(Context context, StringBuilder output);
+        
     }
 }

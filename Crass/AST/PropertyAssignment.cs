@@ -7,6 +7,14 @@ namespace Crass.AST
 {
     class PropertyAssignment : Node
     {
+        public string Name { get; set; }
+        public Node Value { get; set; }
+
+        public override void Emit(Context context, StringBuilder output)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static bool TryParse(Queue<string> remainingWords, out PropertyAssignment property)
         {
             if (remainingWords.Skip(1).Take(1).First() != ":")
@@ -37,9 +45,6 @@ namespace Crass.AST
             property = null;
             return false;
         }
-
-        public string Name { get; set; }
-        public Node Value { get; set; }
 
        
     }

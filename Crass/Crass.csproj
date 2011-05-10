@@ -53,6 +53,7 @@
     <Compile Include="AST\Unit.cs" />
     <Compile Include="AST\Variable.cs" />
     <Compile Include="AST\VariableAssignment.cs" />
+    <Compile Include="Context.cs" />
     <Compile Include="Host.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

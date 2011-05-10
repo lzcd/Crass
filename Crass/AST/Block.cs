@@ -7,6 +7,18 @@ namespace Crass.AST
 {
     class Block : Node
     {
+        public List<Node> Children { get; private set; }
+
+        public Block()
+        {
+            Children = new List<Node>();
+        }
+
+        public override void Emit(Context context, StringBuilder output)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static bool TryParse(Queue<string> remainingWords, out Block block)
         {
             if (remainingWords.Peek() != "{")
@@ -31,11 +43,6 @@ namespace Crass.AST
             return true;
         }
 
-        public List<Node> Children { get; private set; }
-
-        public Block()
-        {
-            Children = new List<Node>();
-        }
+       
     }
 }

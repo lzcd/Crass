@@ -7,6 +7,15 @@ namespace Crass.AST
 {
     class MethodCall : Node
     {
+        public string Name { get; set; }
+
+        public Parameters Parameters { get; set; }
+
+        public override void Emit(Context context, StringBuilder output)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static bool TryParse(Queue<string> remainingWords, out MethodCall methodCall)
         {
             if (remainingWords.Skip(1).Take(1).First() != "(")
@@ -28,8 +37,6 @@ namespace Crass.AST
             return true;
         }
 
-        public string Name { get; set; }
-
-        public Parameters Parameters { get; set; }
+       
     }
 }

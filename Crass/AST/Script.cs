@@ -7,6 +7,18 @@ namespace Crass.AST
 {
     class Script : Node
     {
+        public List<Node> Children { get; set; }
+
+        public Script()
+        {
+            Children = new List<Node>();
+        }
+
+        public override void Emit(Context context, StringBuilder output)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static bool TryParse(Queue<string> remainingWords, out Script script)
         {
             script = new Script();
@@ -32,11 +44,8 @@ namespace Crass.AST
             return true;
         }
 
-        public List<Node> Children { get; set; }
 
-        public Script()
-        {
-            Children = new List<Node>();
-        }
+
+      
     }
 }

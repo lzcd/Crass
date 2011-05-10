@@ -7,6 +7,14 @@ namespace Crass.AST
 {
     class VariableAssignment : Node
     {
+        public string Name { get; set; }
+        public Expression Expression { get; set; }
+
+        public override void Emit(Context context, StringBuilder output)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static bool TryParse(Queue<string> remainingWords, out VariableAssignment assignment)
         {
             assignment = null;
@@ -29,9 +37,6 @@ namespace Crass.AST
             return true;
         }
 
-        public string Name { get; set; }
-
-        public Expression Expression { get; set; }
-
+       
     }
 }
