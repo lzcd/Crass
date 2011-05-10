@@ -12,13 +12,33 @@ namespace Crass.AST
             expression = new Expression();
             while (remainingWords.Peek() != ";")
             {
-                var word = remainingWords.Dequeue();
-                expression.Children.Add(new Node());
+                Variable variable;
+                if (Variable.TryParse(remainingWords, out variable))
+                {
+                    expression.Children.Add(variable);
+                    continue;
+                }
+
+                Colour colour;
+                if (Colour.TryParse(remainingWords, out colour))
+                {
+                    expression.Children.Add(colour);
+                    continue;
+                }
+
+                Unit unit;
+                if (Unit.TryParse(remainingWords, out unit))
+                {
+                    expression.Children.Add(unit);
+                    continue;
+                }
+
+                var namedValue = new NamedValue() { Text = remainingWords.Dequeue() };
+                expression.Children.Add(namedValue);
             }
-            if (remainingWords.Peek() == ";")
-            {
-                remainingWords.Dequeue();
-            }
+
+            remainingWords.Dequeue();
+
             return true;
         }
 
