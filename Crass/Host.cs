@@ -10,17 +10,11 @@ namespace Crass
     {
         public string Execute(string source)
         {
-            var words = Parser.ToWords(source);
-
-            var remainingWords = new Queue<string>(words);
-
-            var script = new Script();
-
-            if (!Script.TryParse(remainingWords, out script))
+            Script script;
+            if (!Parser.TryParse(source, out script))
             {
                 return null;
             }
-           
 
             return null;
         }

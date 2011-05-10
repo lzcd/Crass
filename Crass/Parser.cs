@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Crass.AST;
 
 namespace Crass
 {
@@ -52,6 +53,18 @@ namespace Crass
                 words.Add(word.ToString());
                 word.Clear();
             }
+        }
+
+        internal static bool TryParse(string source, out Script script)
+        {
+            var words = Parser.ToWords(source);
+            var remainingWords = new Queue<string>(words);
+            script = new Script();
+            if (!Script.TryParse(remainingWords, out script))
+            {
+                return false; ;
+            }
+            return true;
         }
     }
 }
