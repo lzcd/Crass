@@ -7,5 +7,14 @@ namespace Crass
 {
     public class Host
     {
+        public string Execute(string source)
+        {
+            var words = Parser.ToWords(source);
+
+            return null;
+        }
+
+       
+
     }
 }
