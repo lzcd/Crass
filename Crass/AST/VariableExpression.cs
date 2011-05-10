@@ -15,8 +15,12 @@ namespace Crass.AST
             {
                 var word = remainingWords.Dequeue();
                 node.Children.Add(new Node());
+                nextWord = remainingWords.Peek();
             }
-
+            if (nextWord == ";")
+            {
+                remainingWords.Dequeue();
+            }
             return true;
         }
 
