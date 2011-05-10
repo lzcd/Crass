@@ -11,7 +11,7 @@ namespace Crass.AST
 
         public override void Emit(Context context, StringBuilder output)
         {
-            throw new NotImplementedException();
+            output.Append(Text);
         }
 
         internal static bool TryParse(Queue<string> remainingWords, out Unit unit)

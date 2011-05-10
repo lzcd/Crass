@@ -17,7 +17,12 @@ namespace Crass.AST
 
         public override void Emit(Context context, StringBuilder output)
         {
-            throw new NotImplementedException();
+            foreach (var name in Names)
+            {
+                output.Append(name);
+                output.Append(" ");
+            }
+            Block.Emit(context, output);
         }
 
         internal static bool TryParse(Queue<string> remainingWords, out Selector selector)

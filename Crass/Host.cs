@@ -20,8 +20,9 @@ namespace Crass
             var output = new StringBuilder();
             
             script.Emit(context, output);
+            var result =  output.ToString();
 
-            return output.ToString();
+            return result;
         }
 
        

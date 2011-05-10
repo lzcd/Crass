@@ -16,7 +16,21 @@ namespace Crass.AST
 
         public override void Emit(Context context, StringBuilder output)
         {
-            throw new NotImplementedException();
+            output.Append("(");
+            bool firstParameter = true;
+            foreach (var parameter in Children)
+            {
+                if (firstParameter)
+                {
+                    firstParameter = false;
+                }
+                else
+                {
+                    output.Append(", ");
+                }
+                parameter.Emit(context, output);
+            }
+            output.Append(")");
         }
 
         internal static bool TryParse(Queue<string> remainingWords, out Parameters parameters)
