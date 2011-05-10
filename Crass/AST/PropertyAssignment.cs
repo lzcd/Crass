@@ -9,7 +9,7 @@ namespace Crass.AST
     {
         internal static bool TryParse(Queue<string> remainingWords, out PropertyAssignment property)
         {
-            if (!remainingWords.Peek().EndsWith(":"))
+            if (remainingWords.Skip(1).Take(1).First() != ":")
             {
                 property = null;
                 return false;
@@ -17,6 +17,7 @@ namespace Crass.AST
 
             property = new PropertyAssignment();
             property.Name = remainingWords.Dequeue();
+            remainingWords.Dequeue();
 
             Block block;
             if (Block.TryParse(remainingWords, out block))

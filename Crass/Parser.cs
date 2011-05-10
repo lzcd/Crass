@@ -23,9 +23,6 @@ namespace Crass
                         Add(word, words);
                         break;
                     case ':':
-                        Add(c, word);
-                        Add(word, words);
-                        break;
                     case '(':
                     case ')':
                     case ',':
