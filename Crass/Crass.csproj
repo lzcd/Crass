@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AST\Block.cs" />
+    <Compile Include="AST\Script.cs" />
     <Compile Include="AST\VariableExpression.cs" />
     <Compile Include="AST\Node.cs" />
     <Compile Include="AST\Property.cs" />

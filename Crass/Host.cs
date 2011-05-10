@@ -13,13 +13,14 @@ namespace Crass
             var words = Parser.ToWords(source);
 
             var remainingWords = new Queue<string>(words);
-            var root = new Node();
 
-            VariableAssignment variableAssignment;
-            VariableAssignment.TryParse(remainingWords, out variableAssignment);
+            var script = new Script();
 
-            Selector selector;
-            Selector.TryParse(remainingWords, out selector);
+            if (!Script.TryParse(remainingWords, out script))
+            {
+                return null;
+            }
+           
 
             return null;
         }
