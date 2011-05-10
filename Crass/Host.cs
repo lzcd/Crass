@@ -18,7 +18,8 @@ namespace Crass
             VariableAssignment variableAssignment;
             VariableAssignment.TryParse(remainingWords, out variableAssignment);
 
-
+            Selector selector;
+            Selector.TryParse(remainingWords, out selector);
 
             return null;
         }

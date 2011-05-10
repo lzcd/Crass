@@ -7,17 +7,15 @@ namespace Crass.AST
 {
     class VariableExpression : Node
     {
-        internal static bool TryParse(Queue<string> remainingWords, out VariableExpression node)
+        internal static bool TryParse(Queue<string> remainingWords, out VariableExpression expression)
         {
-            node = new VariableExpression();
-            var nextWord = remainingWords.Peek();
-            while (nextWord != ";" && remainingWords.Count > 0)
+            expression = new VariableExpression();
+            while (remainingWords.Peek() != ";")
             {
                 var word = remainingWords.Dequeue();
-                node.Children.Add(new Node());
-                nextWord = remainingWords.Peek();
+                expression.Children.Add(new Node());
             }
-            if (nextWord == ";")
+            if (remainingWords.Peek() == ";")
             {
                 remainingWords.Dequeue();
             }

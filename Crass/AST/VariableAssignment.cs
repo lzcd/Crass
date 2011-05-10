@@ -7,9 +7,9 @@ namespace Crass.AST
 {
     class VariableAssignment : Node
     {
-        internal static bool TryParse(Queue<string> remainingWords, out VariableAssignment node)
+        internal static bool TryParse(Queue<string> remainingWords, out VariableAssignment assignment)
         {
-            node = null;
+            assignment = null;
             if (!remainingWords.Peek().StartsWith("$"))
             {
                 return false;
@@ -23,7 +23,7 @@ namespace Crass.AST
                 return false;
             }
 
-            node = new VariableAssignment() { Name = name, Expression = expression };
+            assignment = new VariableAssignment() { Name = name, Expression = expression };
             return true;
         }
 
