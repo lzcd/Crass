@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="AST\Block.cs" />
     <Compile Include="AST\Colour.cs" />
+    <Compile Include="AST\Parameters.cs" />
+    <Compile Include="AST\MethodCall.cs" />
     <Compile Include="AST\NamedValue.cs" />
     <Compile Include="AST\Script.cs" />
     <Compile Include="AST\Expression.cs" />

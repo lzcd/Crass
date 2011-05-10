@@ -33,6 +33,13 @@ namespace Crass.AST
                     continue;
                 }
 
+                MethodCall methodCall;
+                if (MethodCall.TryParse(remainingWords, out methodCall))
+                {
+                    expression.Children.Add(methodCall);
+                    continue;
+                }
+
                 var namedValue = new NamedValue() { Text = remainingWords.Dequeue() };
                 expression.Children.Add(namedValue);
             }
