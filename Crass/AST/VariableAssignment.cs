@@ -16,13 +16,15 @@ namespace Crass.AST
             }
 
             var name = remainingWords.Dequeue();
+            // remove ':'
             remainingWords.Dequeue();
             Expression expression;
             if (!Expression.TryParse(remainingWords, out expression))
             {
                 return false;
             }
-
+            // remove ';'
+            remainingWords.Dequeue();
             assignment = new VariableAssignment() { Name = name, Expression = expression };
             return true;
         }

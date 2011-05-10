@@ -29,6 +29,8 @@ namespace Crass.AST
             if (Expression.TryParse(remainingWords, out expression))
             {
                 property.Value = expression;
+                // remove ';'
+                remainingWords.Dequeue();
                 return true;
             }
 

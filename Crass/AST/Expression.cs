@@ -10,7 +10,10 @@ namespace Crass.AST
         internal static bool TryParse(Queue<string> remainingWords, out Expression expression)
         {
             expression = new Expression();
-            while (remainingWords.Peek() != ";")
+            while (remainingWords.Peek() != ";" &&
+                   remainingWords.Peek() != "," &&
+                   remainingWords.Peek() != ")" &&
+                   remainingWords.Peek() != "}")
             {
                 Variable variable;
                 if (Variable.TryParse(remainingWords, out variable))
@@ -44,7 +47,7 @@ namespace Crass.AST
                 expression.Children.Add(namedValue);
             }
 
-            remainingWords.Dequeue();
+            
 
             return true;
         }

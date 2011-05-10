@@ -19,6 +19,12 @@ namespace Crass.AST
             parameters = new Parameters();
             while (remainingWords.Peek() != ")")
             {
+                if (remainingWords.Peek() == ",")
+                {
+                    remainingWords.Dequeue();
+                    continue;
+                }
+
                 Expression expression;
                 if (Expression.TryParse(remainingWords, out expression))
                 {
