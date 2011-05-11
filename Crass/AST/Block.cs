@@ -42,6 +42,13 @@ namespace Crass.Ast
                     block.Children.Add(property);
                     continue;
                 }
+
+                Selector selector;
+                if (Selector.TryParse(remainingWords, out selector))
+                {
+                    block.Children.Add(selector);
+                    continue;
+                }
             }
             remainingWords.Dequeue();
 

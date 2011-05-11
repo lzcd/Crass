@@ -86,6 +86,7 @@ li {
   font-size: 1.2em;
 }
 ";
+            var result = host.Execute(source, null);
         }
 
         [TestMethod]
