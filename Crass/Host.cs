@@ -8,7 +8,7 @@ namespace Crass
 {
     public class Host
     {
-        public string Execute(string source)
+        public string Execute(string source, Context.TryCallMethodHandler methodCallHandler)
         {
             Script script;
             if (!Parser.TryParse(source, out script))
@@ -16,7 +16,7 @@ namespace Crass
                 return null;
             }
 
-            var context = new Context();
+            var context = new Context() { TryCallMethod = methodCallHandler };
             var output = new StringBuilder();
             
             script.Emit(context, output);

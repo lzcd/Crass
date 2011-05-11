@@ -13,8 +13,8 @@ namespace Crass.AST
 
         public override void Emit(Context context, StringBuilder output)
         {
-            output.Append(Name);
-            Parameters.Emit(context, output);
+            var result = context.Execute(Name, Parameters);
+            result.Emit(context, output);
         }
 
         internal static bool TryParse(Queue<string> remainingWords, out MethodCall methodCall)

@@ -43,7 +43,7 @@ $margin: 16px;
   border-color: #3bbfce;
 }
 ";
-            var result = host.Execute(source);
+            var result = host.Execute(source, null);
         }
 
         [TestMethod]

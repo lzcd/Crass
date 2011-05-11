@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Crass.AST
 {
-    class Parameters : Node
+    public class Parameters : Node
     {
         public List<Node> Children { get; private set; }
 
