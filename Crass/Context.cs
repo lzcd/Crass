@@ -15,11 +15,37 @@ namespace Crass
             nodeByName = new Dictionary<string, Node>();
         }
 
+        protected Context Parent { get; set; }
+
+        protected Context(Context parent)
+            : base()
+        {
+            Parent = parent;
+        }
+        
+
+        internal Context CreateChild()
+        {
+            var child = new Context(this);
+            return child;
+        }
+
         public Node this[string name]
         {
             get
             {
-                return nodeByName[name];
+                Node value;
+                if (nodeByName.TryGetValue(name, out value))
+                {
+                    return value; 
+                }
+
+                if (Parent != null)
+                {
+                    return Parent[name];
+                }
+
+                throw new Exception("I dont know the value of " + name);
             }
             set
             {
@@ -42,5 +68,8 @@ namespace Crass
 
             return result;
         }
+
+        public string PropertyPrefix = null;
+        public bool EmitBraces = true;
     }
 }

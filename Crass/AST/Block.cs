@@ -16,12 +16,20 @@ namespace Crass.Ast
 
         public override void Emit(Context context, StringBuilder output)
         {
-            output.AppendLine("{");
+            if (context.EmitBraces)
+            {
+                output.AppendLine("{");
+            }
+
             foreach (var child in Children)
             {
                 child.Emit(context, output);
             }
-            output.AppendLine("}");
+
+            if (context.EmitBraces)
+            {
+                output.AppendLine("}");
+            }
         }
 
         internal static bool TryParse(Queue<string> remainingWords, out Block block)
@@ -55,6 +63,6 @@ namespace Crass.Ast
             return true;
         }
 
-       
+
     }
 }

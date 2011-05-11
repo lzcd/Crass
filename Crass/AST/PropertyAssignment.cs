@@ -12,10 +12,25 @@ namespace Crass.Ast
 
         public override void Emit(Context context, StringBuilder output)
         {
-            output.Append(Name);
-            output.Append(": ");
-            Value.Emit(context, output);
-            output.AppendLine(";");
+            if (Value is Block)
+            {
+                var childContext = context.CreateChild();
+                childContext.PropertyPrefix = Name;
+                childContext.EmitBraces = false;
+                Value.Emit(childContext, output);
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(context.PropertyPrefix))
+                {
+                    output.Append(context.PropertyPrefix);
+                    output.Append("-");
+                }
+                output.Append(Name);
+                output.Append(": ");
+                Value.Emit(context, output);
+                output.AppendLine(";");
+            }
         }
 
         internal static bool TryParse(Queue<string> remainingWords, out PropertyAssignment property)
@@ -49,6 +64,6 @@ namespace Crass.Ast
             return false;
         }
 
-       
+
     }
 }
