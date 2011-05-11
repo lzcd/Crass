@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Crass.AST
+namespace Crass.Ast
 {
     class MethodCall : Node
     {
@@ -19,7 +19,7 @@ namespace Crass.AST
 
         internal static bool TryParse(Queue<string> remainingWords, out MethodCall methodCall)
         {
-            if (remainingWords.Skip(1).Take(1).First() != "(")
+            if (remainingWords.Skip(1).First() != "(")
             {
                 methodCall = null;
                 return false;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Crass;
+using Crass.Ast;
 
 namespace Tests
 {
@@ -31,7 +32,7 @@ $margin: 16px;
   border-color: $blue;
 }
 ";
-            var expected = 
+            var expected =
 @".content-navigation {
   border-color: #3bbfce;
   color: #2b9eab;
@@ -43,14 +44,19 @@ $margin: 16px;
   border-color: #3bbfce;
 }
 ";
-            var result = host.Execute(source, null);
+            var result = host.Execute(source,
+                (string name, Parameters parameters, out Node node) =>
+                {
+                    node = new Colour() { Text = "#2b9eab" };
+                    return true;
+                });
         }
 
         [TestMethod]
         public void DoesDoNestingExample()
         {
             var host = new Host();
-            var source = 
+            var source =
 @"table.hl {
   margin: 2em 0;
   td.ln {
@@ -66,7 +72,7 @@ li {
   }
 }
 ";
-            var expected = 
+            var expected =
 @"table.hl {
   margin: 2em 0;
 }
@@ -86,7 +92,7 @@ li {
         public void DoesDoMixinsExample()
         {
             var host = new Host();
-            var source = 
+            var source =
 @"@mixin table-base {
   th {
     text-align: center;
@@ -106,7 +112,7 @@ li {
 }
 ";
 
-            var expected = 
+            var expected =
 @"#data {
   float: left;
   margin-left: 10px;
@@ -125,7 +131,7 @@ li {
         public void DoesDoInheritanceExample()
         {
             var host = new Host();
-            var source = 
+            var source =
 @".error {
   border: 1px #f00;
   background: #fdd;
@@ -141,7 +147,7 @@ li {
 }
 ";
 
-            var expected = 
+            var expected =
 @".error, .badError {
   border: 1px #f00;
   background: #fdd;

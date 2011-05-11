@@ -40,19 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AST\Block.cs" />
-    <Compile Include="AST\Colour.cs" />
-    <Compile Include="AST\Parameters.cs" />
-    <Compile Include="AST\MethodCall.cs" />
-    <Compile Include="AST\NamedValue.cs" />
-    <Compile Include="AST\Script.cs" />
-    <Compile Include="AST\Expression.cs" />
-    <Compile Include="AST\Node.cs" />
-    <Compile Include="AST\PropertyAssignment.cs" />
-    <Compile Include="AST\Selector.cs" />
-    <Compile Include="AST\Unit.cs" />
-    <Compile Include="AST\Variable.cs" />
-    <Compile Include="AST\VariableAssignment.cs" />
+    <Compile Include="Ast\Block.cs" />
+    <Compile Include="Ast\Colour.cs" />
+    <Compile Include="Ast\Parameters.cs" />
+    <Compile Include="Ast\MethodCall.cs" />
+    <Compile Include="Ast\NamedValue.cs" />
+    <Compile Include="Ast\Script.cs" />
+    <Compile Include="Ast\Expression.cs" />
+    <Compile Include="Ast\Node.cs" />
+    <Compile Include="Ast\PropertyAssignment.cs" />
+    <Compile Include="Ast\Selector.cs" />
+    <Compile Include="Ast\Unit.cs" />
+    <Compile Include="Ast\Variable.cs" />
+    <Compile Include="Ast\VariableAssignment.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Host.cs" />
     <Compile Include="Parser.cs" />

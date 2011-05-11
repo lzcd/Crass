@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Crass.AST
+namespace Crass.Ast
 {
     class PropertyAssignment : Node
     {
@@ -20,7 +20,7 @@ namespace Crass.AST
 
         internal static bool TryParse(Queue<string> remainingWords, out PropertyAssignment property)
         {
-            if (remainingWords.Skip(1).Take(1).First() != ":")
+            if (remainingWords.Skip(1).First() != ":")
             {
                 property = null;
                 return false;

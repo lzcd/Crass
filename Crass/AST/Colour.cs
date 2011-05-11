@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Crass.AST
+namespace Crass.Ast
 {
-    class Colour : Node
+    public class Colour : Node
     {
         public string Text { get; set; }
 
