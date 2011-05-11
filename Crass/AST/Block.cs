@@ -21,9 +21,11 @@ namespace Crass.Ast
                 output.AppendLine("{");
             }
 
+            var childContext = context.CreateChild();
+            childContext.EmitBraces = true;
             foreach (var child in Children)
             {
-                child.Emit(context, output);
+                child.Emit(childContext, output);
             }
 
             if (context.EmitBraces)
