@@ -17,14 +17,34 @@ namespace Crass.Ast
 
         internal override void Emit(StringBuilder output)
         {
-            if (!(Value is Block))
+            if (Value is Block)
             {
+                Value.Emit(output);
+            }
+            else
+            {
+                var propertyAssignmentNames = new List<string>();
+                var current = Parent as Node;
+                while (current != null)
+                {
+                    var currentPropertyAssignment = current as PropertyAssignment;
+                    if (currentPropertyAssignment != null)
+                    {
+                        propertyAssignmentNames.Insert(0, currentPropertyAssignment.Name);
+                    }
+                    current = current.Parent;
+                }
+               
+                foreach (var prefix in propertyAssignmentNames)
+                {
+                    output.Append(prefix);
+                    output.Append("-");
+                }
                 output.Append(Name);
                 output.Append(": ");
                 Value.Emit(output);
                 output.AppendLine(";");
             }
-            
         }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)

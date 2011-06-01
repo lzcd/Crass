@@ -76,6 +76,7 @@ li {
 @"table.hl {
   margin: 2em 0;
 }
+
 table.hl td.ln {
   text-align: right;
 }

@@ -30,8 +30,22 @@ namespace Crass.Ast
                 current = current.Parent;
             }
 
-            output.Append(string.Join(" ", selectorNames));
+            bool isFirst = true;
+            foreach (var name in selectorNames)
+            {
+                if (isFirst)
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    output.Append(" ");
+                }
+                output.Append(name);
+            }
             Block.Emit(output);
+
+            output.AppendLine();
         }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)

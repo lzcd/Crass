@@ -9,14 +9,22 @@ namespace Crass.Ast
     {
         public List<Node> Children { get; private set; }
 
-        public Block(Node parent) : base(parent)
+        public Block(Node parent)
+            : base(parent)
         {
             Children = new List<Node>();
         }
 
+       
+
         internal override void Emit(StringBuilder output)
         {
-            output.AppendLine(" {");
+            if (!(Parent is PropertyAssignment))
+            {
+                output.AppendLine(" {");
+            }
+
+
             foreach (var child in Children)
             {
                 if (child is Selector)
@@ -25,7 +33,11 @@ namespace Crass.Ast
                 }
                 child.Emit(output);
             }
-            output.AppendLine("}");
+
+            if (!(Parent is PropertyAssignment))
+            {
+                output.AppendLine("}");
+            }
         }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
