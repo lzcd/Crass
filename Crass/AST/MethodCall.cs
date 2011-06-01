@@ -11,7 +11,17 @@ namespace Crass.Ast
 
         public Parameters Parameters { get; set; }
 
-      
+
+        public override void Find(Func<Node, bool> criteria, List<Node> matching)
+        {
+            if (criteria(this))
+            {
+                matching.Add(this);
+            }
+
+            Parameters.Find(criteria, matching);
+        }
+
         internal static bool TryParse(Queue<string> remainingWords, out MethodCall methodCall)
         {
             if (remainingWords.Skip(1).First() != "(")

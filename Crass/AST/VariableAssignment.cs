@@ -10,6 +10,16 @@ namespace Crass.Ast
         public string Name { get; set; }
         public Expression Expression { get; set; }
 
+        public override void Find(Func<Node, bool> criteria, List<Node> matching)
+        {
+            if (criteria(this))
+            {
+                matching.Add(this);
+            }
+
+            Expression.Find(criteria, matching);
+        }
+
         internal static bool TryParse(Queue<string> remainingWords, out VariableAssignment assignment)
         {
             assignment = null;
@@ -32,6 +42,5 @@ namespace Crass.Ast
             return true;
         }
 
-       
     }
 }

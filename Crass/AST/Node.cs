@@ -7,7 +7,6 @@ namespace Crass.Ast
 {
     public abstract class Node
     {
-        
-        
+        public abstract void Find(Func<Node, bool> criteria, List<Node> matching);
     }
 }

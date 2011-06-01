@@ -10,7 +10,17 @@ namespace Crass.Ast
         public string Name { get; set; }
         public Node Value { get; set; }
 
-      
+
+        public override void Find(Func<Node, bool> criteria, List<Node> matching)
+        {
+            if (criteria(this))
+            {
+                matching.Add(this);
+            }
+
+            Value.Find(criteria, matching);
+        }
+
         internal static bool TryParse(Queue<string> remainingWords, out PropertyAssignment property)
         {
             if (remainingWords.Skip(1).First() != ":")

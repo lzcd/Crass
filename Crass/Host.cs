@@ -17,9 +17,9 @@ namespace Crass
             }
 
             var context = new Context() { TryCallMethod = methodCallHandler };
-            var output = new StringBuilder();
             
-           
+            
+            
             return null;
         }
 

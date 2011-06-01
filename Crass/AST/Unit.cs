@@ -9,6 +9,14 @@ namespace Crass.Ast
     {
         public string Text { get; set; }
 
+        public override void Find(Func<Node, bool> criteria, List<Node> matching)
+        {
+            if (criteria(this))
+            {
+                matching.Add(this);
+            }
+        }
+
         internal static bool TryParse(Queue<string> remainingWords, out Unit unit)
         {
             int firstDigit;

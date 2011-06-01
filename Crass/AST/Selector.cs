@@ -15,7 +15,15 @@ namespace Crass.Ast
             Names = new List<string>();
         }
 
-     
+        public override void Find(Func<Node, bool> criteria, List<Node> matching)
+        {
+            if (criteria(this))
+            {
+                matching.Add(this);
+            }
+            Block.Find(criteria, matching);
+        }
+
         internal static bool TryParse(Queue<string> remainingWords, out Selector selector)
         {
             selector = new Selector();

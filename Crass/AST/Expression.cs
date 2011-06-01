@@ -14,7 +14,19 @@ namespace Crass.Ast
             Children = new List<Node>();
         }
 
-     
+
+        public override void Find(Func<Node, bool> criteria, List<Node> matching)
+        {
+            if (criteria(this))
+            {
+                matching.Add(this);
+            }
+
+            foreach (var child in Children)
+            {
+                child.Find(criteria, matching);
+            }
+        }
 
         internal static bool TryParse(Queue<string> remainingWords, out Expression expression)
         {
