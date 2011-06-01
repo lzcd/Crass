@@ -9,7 +9,8 @@ namespace Crass.Ast
     {
         public List<Node> Children { get; set; }
 
-        public Script()
+        public Script(Node parent)
+            : base(parent)
         {
             Children = new List<Node>();
         }
@@ -26,23 +27,23 @@ namespace Crass.Ast
             }
         }
 
-       
 
-        internal static bool TryParse(Queue<string> remainingWords, out Script script)
+
+        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Script script)
         {
-            script = new Script();
+            script = new Script(parent);
 
             do
             {
                 VariableAssignment variableAssignment;
-                if (VariableAssignment.TryParse(remainingWords, out variableAssignment))
+                if (VariableAssignment.TryParse(script, remainingWords, out variableAssignment))
                 {
                     script.Children.Add(variableAssignment);
                     continue;
                 }
 
                 Selector selector;
-                if (Selector.TryParse(remainingWords, out selector))
+                if (Selector.TryParse(script, remainingWords, out selector))
                 {
                     script.Children.Add(selector);
                     continue;
@@ -55,6 +56,6 @@ namespace Crass.Ast
 
 
 
-      
+
     }
 }

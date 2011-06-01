@@ -10,7 +10,8 @@ namespace Crass.Ast
         public List<string> Names { get; private set; }
         public Block Block { get; set; }
 
-        public Selector()
+        public Selector(Node parent)
+            : base(parent)
         {
             Names = new List<string>();
         }
@@ -24,15 +25,15 @@ namespace Crass.Ast
             Block.Find(criteria, matching);
         }
 
-        internal static bool TryParse(Queue<string> remainingWords, out Selector selector)
+        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Selector selector)
         {
-            selector = new Selector();
+            selector = new Selector(parent);
             while (remainingWords.Peek() != "{")
             {
-                selector.Names.Add(remainingWords.Dequeue()); 
+                selector.Names.Add(remainingWords.Dequeue());
             }
             Block block;
-            if (!Block.TryParse(remainingWords, out block))
+            if (!Block.TryParse(selector, remainingWords, out block))
             {
                 selector = null;
                 return false;
@@ -41,6 +42,6 @@ namespace Crass.Ast
             return true;
         }
 
-       
+
     }
 }

@@ -7,6 +7,11 @@ namespace Crass.Ast
 {
     class MethodCall : Node
     {
+        public MethodCall(Node parent)
+            : base(parent)
+        {
+        }
+
         public string Name { get; set; }
 
         public Parameters Parameters { get; set; }
@@ -22,7 +27,7 @@ namespace Crass.Ast
             Parameters.Find(criteria, matching);
         }
 
-        internal static bool TryParse(Queue<string> remainingWords, out MethodCall methodCall)
+        internal static bool TryParse(Node parent, Queue<string> remainingWords, out MethodCall methodCall)
         {
             if (remainingWords.Skip(1).First() != "(")
             {
@@ -30,15 +35,17 @@ namespace Crass.Ast
                 return false;
             }
 
-            var name = remainingWords.Dequeue();
+            methodCall = new MethodCall(parent);
+
+            methodCall.Name = remainingWords.Dequeue();
             Parameters parameters;
-            if (!Parameters.TryParse(remainingWords, out parameters))
+            if (!Parameters.TryParse(methodCall, remainingWords, out parameters))
             {
                 methodCall = null;
                 return false;
             }
 
-            methodCall = new MethodCall() { Name = name, Parameters = parameters };
+             methodCall.Parameters = parameters;
             
             return true;
         }

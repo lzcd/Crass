@@ -19,6 +19,8 @@ namespace Crass
             var context = new Context() { TryCallMethod = methodCallHandler };
             
             
+            var selectors = new List<Node>();
+            script.Find(n => (n is Selector), selectors); 
             
             return null;
         }

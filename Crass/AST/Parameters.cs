@@ -9,7 +9,8 @@ namespace Crass.Ast
     {
         public List<Node> Children { get; private set; }
 
-        public Parameters()
+        public Parameters(Node parent)
+            : base(parent)
         {
             Children = new List<Node>();
         }
@@ -27,7 +28,7 @@ namespace Crass.Ast
             }
         }
 
-        internal static bool TryParse(Queue<string> remainingWords, out Parameters parameters)
+        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Parameters parameters)
         {
             if (remainingWords.Peek() != "(")
             {
@@ -36,7 +37,7 @@ namespace Crass.Ast
             }
             remainingWords.Dequeue();
 
-            parameters = new Parameters();
+            parameters = new Parameters(parent);
             while (remainingWords.Peek() != ")")
             {
                 if (remainingWords.Peek() == ",")
@@ -46,7 +47,7 @@ namespace Crass.Ast
                 }
 
                 Expression expression;
-                if (Expression.TryParse(remainingWords, out expression))
+                if (Expression.TryParse(parent, remainingWords, out expression))
                 {
                     parameters.Children.Add(expression);
                     continue;

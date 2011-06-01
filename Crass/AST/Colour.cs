@@ -7,6 +7,11 @@ namespace Crass.Ast
 {
     public class Colour : Node
     {
+        public Colour(Node parent)
+            : base(parent)
+        {
+        }
+
         public string Text { get; set; }
 
 
@@ -18,7 +23,7 @@ namespace Crass.Ast
             }
         }
 
-        internal static bool TryParse(Queue<string> remainingWords, out Colour colour)
+        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Colour colour)
         {
             if (!remainingWords.Peek().StartsWith("#"))
             {
@@ -26,7 +31,7 @@ namespace Crass.Ast
                 return false;
             }
             var text = remainingWords.Dequeue();
-            colour = new Colour() { Text = text };
+            colour = new Colour(parent) { Text = text };
             return true;
         }
 

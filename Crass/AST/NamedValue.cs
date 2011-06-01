@@ -7,6 +7,11 @@ namespace Crass.Ast
 {
     class NamedValue : Node
     {
+        public NamedValue(Node parent)
+            : base(parent)
+        {
+        }
+
         public string Text { get; set; }
 
 

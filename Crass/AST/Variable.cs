@@ -7,6 +7,11 @@ namespace Crass.Ast
 {
     class Variable : Node
     {
+        public Variable(Node parent)
+            : base(parent)
+        {
+        }
+
         public string Name { get; set; }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
@@ -17,7 +22,7 @@ namespace Crass.Ast
             }
         }
 
-        internal static bool TryParse(Queue<string> remainingWords, out Variable variable)
+        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Variable variable)
         {
             if (!remainingWords.Peek().StartsWith("$"))
             {
@@ -25,7 +30,7 @@ namespace Crass.Ast
                 return false;
             }
             var name = remainingWords.Dequeue();
-            variable = new Variable() { Name = name };
+            variable = new Variable(parent) { Name = name };
             return true;
         }
 

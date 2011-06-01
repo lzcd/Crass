@@ -7,6 +7,11 @@ namespace Crass.Ast
 {
     class Unit : Node
     {
+        public Unit(Node parent)
+            : base(parent)
+        {
+        }
+
         public string Text { get; set; }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
@@ -17,7 +22,7 @@ namespace Crass.Ast
             }
         }
 
-        internal static bool TryParse(Queue<string> remainingWords, out Unit unit)
+        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Unit unit)
         {
             int firstDigit;
             if (!int.TryParse(remainingWords.Peek().Substring(0,1), out firstDigit))
@@ -26,7 +31,7 @@ namespace Crass.Ast
                 return false;
             }
             var text = remainingWords.Dequeue();
-            unit = new Unit() { Text = text };
+            unit = new Unit(parent) { Text = text };
             return true;
         }
 

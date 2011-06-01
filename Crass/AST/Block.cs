@@ -9,7 +9,7 @@ namespace Crass.Ast
     {
         public List<Node> Children { get; private set; }
 
-        public Block()
+        public Block(Node parent) : base(parent)
         {
             Children = new List<Node>();
         }
@@ -27,7 +27,7 @@ namespace Crass.Ast
             }
         }
 
-        internal static bool TryParse(Queue<string> remainingWords, out Block block)
+        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Block block)
         {
             if (remainingWords.Peek() != "{")
             {
@@ -36,18 +36,18 @@ namespace Crass.Ast
             }
             remainingWords.Dequeue();
 
-            block = new Block();
+            block = new Block(parent);
             while (remainingWords.Peek() != "}")
             {
                 PropertyAssignment property;
-                if (PropertyAssignment.TryParse(remainingWords, out property))
+                if (PropertyAssignment.TryParse(block, remainingWords, out property))
                 {
                     block.Children.Add(property);
                     continue;
                 }
 
                 Selector selector;
-                if (Selector.TryParse(remainingWords, out selector))
+                if (Selector.TryParse(block, remainingWords, out selector))
                 {
                     block.Children.Add(selector);
                     continue;

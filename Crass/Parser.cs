@@ -59,11 +59,13 @@ namespace Crass
         {
             var words = Parser.ToWords(source);
             var remainingWords = new Queue<string>(words);
-            script = new Script();
-            if (!Script.TryParse(remainingWords, out script))
+            
+            if (Script.TryParse(null, remainingWords, out script))
             {
-                return false; ;
+                return true;
             }
+
+            script = null;
             return true;
         }
     }

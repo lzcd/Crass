@@ -47,7 +47,7 @@ $margin: 16px;
             var result = host.Execute(source,
                 (string name, Parameters parameters, out Node node) =>
                 {
-                    node = new Colour() { Text = "#2b9eab" };
+                    node = new Colour(parameters.Parent) { Text = "#2b9eab" };
                     return true;
                 });
         }

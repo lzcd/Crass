@@ -9,7 +9,8 @@ namespace Crass.Ast
     {
         public List<Node> Children { get; private set; }
 
-        public Expression()
+        public Expression(Node parent)
+            : base(parent)
         {
             Children = new List<Node>();
         }
@@ -28,51 +29,51 @@ namespace Crass.Ast
             }
         }
 
-        internal static bool TryParse(Queue<string> remainingWords, out Expression expression)
+        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Expression expression)
         {
-            expression = new Expression();
+            expression = new Expression(parent);
             while (remainingWords.Peek() != ";" &&
                    remainingWords.Peek() != "," &&
                    remainingWords.Peek() != ")" &&
                    remainingWords.Peek() != "}")
             {
                 Variable variable;
-                if (Variable.TryParse(remainingWords, out variable))
+                if (Variable.TryParse(expression, remainingWords, out variable))
                 {
                     expression.Children.Add(variable);
                     continue;
                 }
 
                 Colour colour;
-                if (Colour.TryParse(remainingWords, out colour))
+                if (Colour.TryParse(expression, remainingWords, out colour))
                 {
                     expression.Children.Add(colour);
                     continue;
                 }
 
                 Unit unit;
-                if (Unit.TryParse(remainingWords, out unit))
+                if (Unit.TryParse(expression, remainingWords, out unit))
                 {
                     expression.Children.Add(unit);
                     continue;
                 }
 
                 MethodCall methodCall;
-                if (MethodCall.TryParse(remainingWords, out methodCall))
+                if (MethodCall.TryParse(expression, remainingWords, out methodCall))
                 {
                     expression.Children.Add(methodCall);
                     continue;
                 }
 
-                var namedValue = new NamedValue() { Text = remainingWords.Dequeue() };
+                var namedValue = new NamedValue(expression) { Text = remainingWords.Dequeue() };
                 expression.Children.Add(namedValue);
             }
 
-            
+
 
             return true;
         }
 
-       
+
     }
 }

@@ -7,6 +7,11 @@ namespace Crass.Ast
 {
     class VariableAssignment : Node
     {
+        public VariableAssignment(Node parent)
+            : base(parent)
+        {
+        }
+
         public string Name { get; set; }
         public Expression Expression { get; set; }
 
@@ -20,25 +25,25 @@ namespace Crass.Ast
             Expression.Find(criteria, matching);
         }
 
-        internal static bool TryParse(Queue<string> remainingWords, out VariableAssignment assignment)
+        internal static bool TryParse(Node parent, Queue<string> remainingWords, out VariableAssignment assignment)
         {
             assignment = null;
             if (!remainingWords.Peek().StartsWith("$"))
             {
                 return false;
             }
-
-            var name = remainingWords.Dequeue();
+            assignment = new VariableAssignment(parent);
+            assignment.Name = remainingWords.Dequeue();
             // remove ':'
             remainingWords.Dequeue();
             Expression expression;
-            if (!Expression.TryParse(remainingWords, out expression))
+            if (!Expression.TryParse(assignment, remainingWords, out expression))
             {
                 return false;
             }
             // remove ';'
             remainingWords.Dequeue();
-            assignment = new VariableAssignment() { Name = name, Expression = expression };
+            assignment.Expression = expression ;
             return true;
         }
 
