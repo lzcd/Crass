@@ -34,12 +34,15 @@ namespace Crass.Ast
                     }
                     current = current.Parent;
                 }
-               
+
+                AppendChildIndendation(output);
+
                 foreach (var prefix in propertyAssignmentNames)
                 {
                     output.Append(prefix);
                     output.Append("-");
                 }
+
                 output.Append(Name);
                 output.Append(": ");
                 Value.Emit(output);

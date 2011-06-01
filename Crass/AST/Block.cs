@@ -40,6 +40,15 @@ namespace Crass.Ast
             }
         }
 
+        protected override void AppendChildIndendation(StringBuilder output)
+        {
+            if (!(Parent is PropertyAssignment))
+            {
+                output.Append("  ");
+            }
+            base.AppendChildIndendation(output);
+        }
+
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
             if (criteria(this))
