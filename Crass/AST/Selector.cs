@@ -31,9 +31,7 @@ namespace Crass.Ast
             }
 
             output.Append(string.Join(" ", selectorNames));
-            output.AppendLine(" {");
-
-            output.AppendLine("}");
+            Block.Emit(output);
         }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)

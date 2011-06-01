@@ -15,6 +15,23 @@ namespace Crass.Ast
             Children = new List<Node>();
         }
 
+        internal override void Emit(StringBuilder output)
+        {
+            bool isFirst = true;
+            foreach (var child in Children)
+            {
+                if (isFirst)
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    output.Append(" ");
+                }
+
+                child.Emit(output);
+            }
+        }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {

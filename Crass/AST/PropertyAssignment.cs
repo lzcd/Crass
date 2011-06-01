@@ -15,6 +15,17 @@ namespace Crass.Ast
         public string Name { get; set; }
         public Node Value { get; set; }
 
+        internal override void Emit(StringBuilder output)
+        {
+            if (!(Value is Block))
+            {
+                output.Append(Name);
+                output.Append(": ");
+                Value.Emit(output);
+                output.AppendLine(";");
+            }
+            
+        }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {

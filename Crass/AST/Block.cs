@@ -14,6 +14,20 @@ namespace Crass.Ast
             Children = new List<Node>();
         }
 
+        internal override void Emit(StringBuilder output)
+        {
+            output.AppendLine(" {");
+            foreach (var child in Children)
+            {
+                if (child is Selector)
+                {
+                    continue;
+                }
+                child.Emit(output);
+            }
+            output.AppendLine("}");
+        }
+
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
             if (criteria(this))
