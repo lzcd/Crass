@@ -14,13 +14,6 @@ namespace Crass.Ast
             Parent = parent;
         }
 
-        protected virtual void AppendChildIndendation(StringBuilder output)
-        {
-            if (Parent != null)
-            {
-                Parent.AppendChildIndendation(output);
-            }
-        }
 
         public abstract void Find(Func<Node, bool> criteria, List<Node> matching);
 

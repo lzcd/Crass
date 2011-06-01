@@ -71,6 +71,7 @@ li {
     size: 1.2em;
   }
 }
+
 ";
             var expected =
 @"table.hl {
@@ -86,8 +87,10 @@ li {
   font-weight: bold;
   font-size: 1.2em;
 }
+
 ";
             var result = host.Execute(source, null);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
@@ -126,6 +129,7 @@ li {
 #data td, #data th {
   padding: 2px;
 }
+
 ";
         }
 
@@ -163,7 +167,9 @@ li {
 
 .badError {
   border-width: 3px;
-}";
+}
+
+";
         }
     }
 }

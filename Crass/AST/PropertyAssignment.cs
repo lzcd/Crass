@@ -35,7 +35,7 @@ namespace Crass.Ast
                     current = current.Parent;
                 }
 
-                AppendChildIndendation(output);
+                output.Append("  ");
 
                 foreach (var prefix in propertyAssignmentNames)
                 {
