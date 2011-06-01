@@ -115,6 +115,7 @@ li {
   @include left(10px);
   @include table-base;
 }
+
 ";
 
             var expected =
@@ -170,6 +171,8 @@ li {
 }
 
 ";
+            var result = host.Execute(source, null);
+            Assert.AreEqual(expected, result);
         }
     }
 }
