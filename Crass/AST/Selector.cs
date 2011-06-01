@@ -16,6 +16,26 @@ namespace Crass.Ast
             Names = new List<string>();
         }
 
+        internal override void Emit(StringBuilder output)
+        {
+            var selectorNames = new List<string>();
+            var current = this as Node;
+            while (current != null)
+            {
+                var currentSelector = current as Selector;
+                if (currentSelector != null)
+                {
+                    selectorNames.InsertRange(0, currentSelector.Names);
+                }
+                current = current.Parent;
+            }
+
+            output.Append(string.Join(" ", selectorNames));
+            output.AppendLine(" {");
+
+            output.AppendLine("}");
+        }
+
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
             if (criteria(this))

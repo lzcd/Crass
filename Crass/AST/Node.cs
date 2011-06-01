@@ -15,5 +15,10 @@ namespace Crass.Ast
         }
 
         public abstract void Find(Func<Node, bool> criteria, List<Node> matching);
+
+        internal virtual void Emit(StringBuilder output)
+        {
+            
+        }
     }
 }
