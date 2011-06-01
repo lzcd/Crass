@@ -9,12 +9,6 @@ namespace Crass.Ast
     {
         public string Name { get; set; }
 
-        public override void Emit(Context context, StringBuilder output)
-        {
-            var value = context[Name];
-            value.Emit(context, output);
-        }
-
         internal static bool TryParse(Queue<string> remainingWords, out Variable variable)
         {
             if (!remainingWords.Peek().StartsWith("$"))

@@ -11,12 +11,7 @@ namespace Crass.Ast
 
         public Parameters Parameters { get; set; }
 
-        public override void Emit(Context context, StringBuilder output)
-        {
-            var result = context.Execute(Name, Parameters);
-            result.Emit(context, output);
-        }
-
+      
         internal static bool TryParse(Queue<string> remainingWords, out MethodCall methodCall)
         {
             if (remainingWords.Skip(1).First() != "(")

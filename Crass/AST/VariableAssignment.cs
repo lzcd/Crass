@@ -10,11 +10,6 @@ namespace Crass.Ast
         public string Name { get; set; }
         public Expression Expression { get; set; }
 
-        public override void Emit(Context context, StringBuilder output)
-        {
-            context[Name] = Expression;
-        }
-
         internal static bool TryParse(Queue<string> remainingWords, out VariableAssignment assignment)
         {
             assignment = null;

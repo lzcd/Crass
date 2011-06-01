@@ -14,24 +14,7 @@ namespace Crass.Ast
             Children = new List<Node>();
         }
 
-        public override void Emit(Context context, StringBuilder output)
-        {
-            output.Append("(");
-            bool firstParameter = true;
-            foreach (var parameter in Children)
-            {
-                if (firstParameter)
-                {
-                    firstParameter = false;
-                }
-                else
-                {
-                    output.Append(", ");
-                }
-                parameter.Emit(context, output);
-            }
-            output.Append(")");
-        }
+      
 
         internal static bool TryParse(Queue<string> remainingWords, out Parameters parameters)
         {

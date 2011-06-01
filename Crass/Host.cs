@@ -19,10 +19,8 @@ namespace Crass
             var context = new Context() { TryCallMethod = methodCallHandler };
             var output = new StringBuilder();
             
-            script.Emit(context, output);
-            var result =  output.ToString();
-
-            return result;
+           
+            return null;
         }
 
        

@@ -9,11 +9,7 @@ namespace Crass.Ast
     {
         public string Text { get; set; }
 
-        public override void Emit(Context context, StringBuilder output)
-        {
-            output.Append(Text);
-        }
-
+   
         internal static bool TryParse(Queue<string> remainingWords, out Colour colour)
         {
             if (!remainingWords.Peek().StartsWith("#"))

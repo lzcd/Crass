@@ -7,7 +7,7 @@ namespace Crass.Ast
 {
     public abstract class Node
     {
-        public abstract void Emit(Context context, StringBuilder output);
+        
         
     }
 }
