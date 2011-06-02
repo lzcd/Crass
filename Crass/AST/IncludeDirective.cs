@@ -12,7 +12,6 @@ namespace Crass.Ast
         {
         }
 
-        public string Name { get; set; }
         public Node Value { get; set; }
 
        
@@ -40,7 +39,8 @@ namespace Crass.Ast
             }
 
             directive = new IncludeDirective(parent);
-            directive.Name = remainingWords.Dequeue().Substring(1);
+            // remove '@include'
+            remainingWords.Dequeue();
 
 
             Expression expression;

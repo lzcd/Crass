@@ -12,7 +12,6 @@ namespace Crass.Ast
         {
         }
 
-        public string Name { get; set; }
         public Node Value { get; set; }
         
 
@@ -39,7 +38,8 @@ namespace Crass.Ast
             }
 
             definition = new MixinDefinition(parent);
-            definition.Name = remainingWords.Dequeue().Substring(1);
+            // remove '@mixin'
+            remainingWords.Dequeue();
 
             Selector selector;
             if (!Selector.TryParse(definition, remainingWords, out selector))
