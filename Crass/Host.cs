@@ -23,9 +23,7 @@ namespace Crass
 
 
             var extensions = new List<Node>();
-            script.Find(n => (n is ExtendDirective && 
-                                ((ExtendDirective)n).Name == "extend" ), 
-                                extensions);
+            script.Find(n => (n is ExtendDirective), extensions);
 
             foreach (ExtendDirective extension in extensions)
             {

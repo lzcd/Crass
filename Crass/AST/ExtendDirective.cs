@@ -17,18 +17,7 @@ namespace Crass.Ast
 
         internal void TryExtend(Selector targetSelector)
         {
-
             var searchNode = this as Node;
-            while (searchNode != null)
-            {
-                if (searchNode is MixinDefinition)
-                {
-                    return;
-                }
-                searchNode = searchNode.Parent;
-            }
-
-            searchNode = this as Node;
             while (searchNode != null &&
                    !(searchNode is Selector))
             {

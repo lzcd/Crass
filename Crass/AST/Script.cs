@@ -39,6 +39,7 @@ namespace Crass.Ast
                 if (MixinDefinition.TryParse(script, remainingWords, out mixinDefinition))
                 {
                     script.Children.Add(mixinDefinition);
+                    continue;
                 }
 
                 VariableAssignment variableAssignment;
