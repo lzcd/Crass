@@ -10,8 +10,11 @@ namespace Crass.Ast
         public MixinDefinition(Node parent)
             : base(parent)
         {
+            Names = new List<string>();
         }
 
+        public List<string> Names { get; private set; }
+        public Parameters Parameters { get; private set; }
         public Node Value { get; set; }
         
 
@@ -41,13 +44,25 @@ namespace Crass.Ast
             // remove '@mixin'
             remainingWords.Dequeue();
 
-            Selector selector;
-            if (!Selector.TryParse(definition, remainingWords, out selector))
-            {
-                throw new Exception("eeep");
-            }
-            definition.Value = selector;
 
+            while (remainingWords.Peek() != "{" &&
+                remainingWords.Peek() != "(")
+            {
+                definition.Names.Add(remainingWords.Dequeue());
+            }
+
+            Parameters parameters;
+            if (Parameters.TryParse(definition, remainingWords, out parameters))
+            {
+                definition.Parameters = parameters;
+            }
+
+            Block block;
+            if (!Block.TryParse(definition, remainingWords, out block))
+            {
+                throw new Exception("erh?");
+            }
+            definition.Value = block;
             return true;
         }
 
