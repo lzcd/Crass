@@ -34,7 +34,7 @@ namespace Crass.Ast
             }
 
             directive = new DirectiveAssignment(parent);
-            directive.Name = remainingWords.Dequeue();
+            directive.Name = remainingWords.Dequeue().Substring(1);
 
             Expression expression;
             if (!Expression.TryParse(directive, remainingWords, out expression))

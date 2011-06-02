@@ -17,7 +17,12 @@ namespace Crass
             }
 
             var context = new Context() { TryCallMethod = methodCallHandler };
-            
+
+            var extensions = new List<Node>();
+            script.Find(n => (n is DirectiveAssignment && 
+                                ((DirectiveAssignment)n).Name == "extend" ), 
+                                extensions);
+
             var selectors = new List<Node>();
             script.Find(n => (n is Selector), selectors);
 
