@@ -18,6 +18,16 @@ namespace Crass.Ast
 
         internal override void Emit(StringBuilder output)
         {
+            var searchNode = this as Node;
+            while (searchNode != null)
+            {
+                if (searchNode is MixinDefinition)
+                {
+                    return;
+                }
+                searchNode = searchNode.Parent;
+            }
+
             var selectorNames = new List<string>();
             var current = this as Node;
             while (current != null)
