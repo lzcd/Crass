@@ -26,6 +26,8 @@ namespace Crass
                     case ':':
                     case '(':
                     case ')':
+                    case '{':
+                    case '}':
                     case ',':
                     case ';':
                         Add(word, words);
