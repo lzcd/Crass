@@ -155,7 +155,8 @@ li {
 ";
 
             var expected =
-@".error, .badError {
+@".error,
+.badError {
   border: 1px #f00;
   background: #fdd;
 }

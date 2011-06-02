@@ -37,11 +37,18 @@ namespace Crass.Ast
                 {
                     isFirst = false;
                 }
-                else
+                else if (name != ",")
                 {
                     output.Append(" ");
                 }
+
                 output.Append(name);
+
+                if (name == ",")
+                {
+                    output.AppendLine();
+                    isFirst = true;
+                }
             }
             Block.Emit(output);
 
