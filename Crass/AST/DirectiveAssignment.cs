@@ -17,27 +17,34 @@ namespace Crass.Ast
 
         internal void TryExtend(Selector targetSelector)
         {
-            var parentSelector = this as Node;
-            while (parentSelector != null &&
-                   !(parentSelector is Selector))
+            var searchNode = this as Node;
+            while (searchNode != null &&
+                   !(searchNode is Selector))
             {
-                parentSelector = parentSelector.Parent;
+                searchNode = searchNode.Parent;
             }
 
-            
+            var parentSelector = searchNode as Selector;
+
             foreach (NamedValue namedValue in Expression.Children)
             {
                 var criteria = namedValue.Text;
 
-                foreach (var targetSelectorName in targetSelector.Names)
+                var originalTargetSelectorNames = new List<string>(targetSelector.Names);
+                foreach (var targetSelectorName in originalTargetSelectorNames)
                 {
                     if (!targetSelectorName.StartsWith(criteria))
                     {
                         continue;
                     }
 
-                    var extendedName = targetSelectorName.Substring(criteria.Length);
-
+                    var extendedNameSuffix = targetSelectorName.Substring(criteria.Length);
+                    foreach (var parentName in parentSelector.Names)
+                    {
+                        var extendedName = parentName + extendedNameSuffix;
+                        targetSelector.Names.Add(",");
+                        targetSelector.Names.Add(extendedName);
+                    }
                 }
             }
         }
