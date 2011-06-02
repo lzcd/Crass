@@ -70,6 +70,7 @@ namespace Crass.Ast
 
             property = new PropertyAssignment(parent);
             property.Name = remainingWords.Dequeue();
+            // remove ':'
             remainingWords.Dequeue();
 
             Block block;
@@ -83,7 +84,10 @@ namespace Crass.Ast
             {
                 property.Value = expression;
                 // remove ';'
-                remainingWords.Dequeue();
+                if (remainingWords.Peek() == ";")
+                {
+                    remainingWords.Dequeue();
+                }
                 return true;
             }
 

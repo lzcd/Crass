@@ -132,6 +132,8 @@ li {
 }
 
 ";
+            var result = host.Execute(source, null);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]

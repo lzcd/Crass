@@ -13,8 +13,8 @@ namespace Crass.Ast
         }
 
         public string Name { get; set; }
-        public Expression Expression { get; set; }
-
+        public Node Value { get; set; }
+        
         internal void TryExtend(Selector targetSelector)
         {
             var searchNode = this as Node;
@@ -25,8 +25,8 @@ namespace Crass.Ast
             }
 
             var parentSelector = searchNode as Selector;
-
-            foreach (NamedValue namedValue in Expression.Children)
+            var expressionValue = Value as Expression;
+            foreach (NamedValue namedValue in expressionValue.Children)
             {
                 var criteria = namedValue.Text;
 
@@ -56,7 +56,11 @@ namespace Crass.Ast
                 matching.Add(this);
             }
 
-            Expression.Find(criteria, matching);
+            if (Value != null)
+            {
+                Value.Find(criteria, matching);
+            }
+
         }
 
         internal static bool TryParse(Node parent, Queue<string> remainingWords, out DirectiveAssignment directive)
@@ -70,14 +74,22 @@ namespace Crass.Ast
             directive = new DirectiveAssignment(parent);
             directive.Name = remainingWords.Dequeue().Substring(1);
 
-            Expression expression;
-            if (!Expression.TryParse(directive, remainingWords, out expression))
+            Selector selector;
+            if (Selector.TryParse(directive, remainingWords, out selector))
             {
-                return false;
+                directive.Value = selector;
             }
-            // remove ';'
-            remainingWords.Dequeue();
-            directive.Expression = expression;
+            else
+            {
+                Expression expression;
+                if (!Expression.TryParse(directive, remainingWords, out expression))
+                {
+                    return false;
+                }
+                // remove ';'
+                remainingWords.Dequeue();
+                directive.Value = expression;
+            }
 
             return true;
         }

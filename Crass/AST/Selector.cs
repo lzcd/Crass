@@ -66,6 +66,22 @@ namespace Crass.Ast
 
         internal static bool TryParse(Node parent, Queue<string> remainingWords, out Selector selector)
         {
+            var openingBraceFound = false;
+            foreach (var word in remainingWords)
+            {
+                if (word == "{")
+                {
+                    openingBraceFound = true;
+                    break;
+                }
+            }
+
+            if (!openingBraceFound)
+            {
+                selector = null;
+                return false;
+            }
+            
             selector = new Selector(parent);
             while (remainingWords.Peek() != "{")
             {

@@ -35,6 +35,12 @@ namespace Crass.Ast
 
             do
             {
+                DirectiveAssignment directiveAssigment;
+                if (DirectiveAssignment.TryParse(script, remainingWords, out directiveAssigment))
+                {
+                    script.Children.Add(directiveAssigment);
+                }
+
                 VariableAssignment variableAssignment;
                 if (VariableAssignment.TryParse(script, remainingWords, out variableAssignment))
                 {
