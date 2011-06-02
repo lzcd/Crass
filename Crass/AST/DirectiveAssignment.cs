@@ -15,6 +15,33 @@ namespace Crass.Ast
         public string Name { get; set; }
         public Expression Expression { get; set; }
 
+        internal void TryExtend(Selector targetSelector)
+        {
+            var parentSelector = this as Node;
+            while (parentSelector != null &&
+                   !(parentSelector is Selector))
+            {
+                parentSelector = parentSelector.Parent;
+            }
+
+            
+            foreach (NamedValue namedValue in Expression.Children)
+            {
+                var criteria = namedValue.Text;
+
+                foreach (var targetSelectorName in targetSelector.Names)
+                {
+                    if (!targetSelectorName.StartsWith(criteria))
+                    {
+                        continue;
+                    }
+
+                    var extendedName = targetSelectorName.Substring(criteria.Length);
+
+                }
+            }
+        }
+
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
             if (criteria(this))
@@ -47,5 +74,7 @@ namespace Crass.Ast
 
             return true;
         }
+
+        
     }
 }
