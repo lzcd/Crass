@@ -35,10 +35,10 @@ namespace Crass.Ast
 
             do
             {
-                DirectiveAssignment directiveAssigment;
-                if (DirectiveAssignment.TryParse(script, remainingWords, out directiveAssigment))
+                MixinDefinition mixinDefinition;
+                if (MixinDefinition.TryParse(script, remainingWords, out mixinDefinition))
                 {
-                    script.Children.Add(directiveAssigment);
+                    script.Children.Add(mixinDefinition);
                 }
 
                 VariableAssignment variableAssignment;

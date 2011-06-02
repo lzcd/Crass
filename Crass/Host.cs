@@ -23,11 +23,11 @@ namespace Crass
 
 
             var extensions = new List<Node>();
-            script.Find(n => (n is DirectiveAssignment && 
-                                ((DirectiveAssignment)n).Name == "extend" ), 
+            script.Find(n => (n is ExtendDirective && 
+                                ((ExtendDirective)n).Name == "extend" ), 
                                 extensions);
 
-            foreach (DirectiveAssignment extension in extensions)
+            foreach (ExtendDirective extension in extensions)
             {
                 foreach (Selector selector in selectors)
                 {

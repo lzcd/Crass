@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="Ast\Block.cs" />
     <Compile Include="Ast\Colour.cs" />
-    <Compile Include="Ast\DirectiveAssignment.cs" />
+    <Compile Include="Ast\IncludeDirective.cs" />
+    <Compile Include="Ast\MixinDefinition.cs" />
+    <Compile Include="Ast\ExtendDirective.cs" />
     <Compile Include="Ast\Parameters.cs" />
     <Compile Include="Ast\MethodCall.cs" />
     <Compile Include="Ast\NamedValue.cs" />

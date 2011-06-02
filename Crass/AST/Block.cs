@@ -65,10 +65,17 @@ namespace Crass.Ast
             block = new Block(parent);
             while (remainingWords.Peek() != "}")
             {
-                DirectiveAssignment directive;
-                if (DirectiveAssignment.TryParse(block, remainingWords, out directive))
+                IncludeDirective includeDirective;
+                if (IncludeDirective.TryParse(block, remainingWords, out includeDirective))
                 {
-                    block.Children.Add(directive);
+                    block.Children.Add(includeDirective);
+                    continue;
+                }
+
+                ExtendDirective excludeDirective;
+                if (ExtendDirective.TryParse(block, remainingWords, out excludeDirective))
+                {
+                    block.Children.Add(excludeDirective);
                     continue;
                 }
 

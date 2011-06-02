@@ -5,16 +5,16 @@ using System.Text;
 
 namespace Crass.Ast
 {
-    class DirectiveAssignment : Node
+    class ExtendDirective : Node
     {
-        public DirectiveAssignment(Node parent)
+        public ExtendDirective(Node parent)
             : base(parent)
         {
         }
 
         public string Name { get; set; }
         public Node Value { get; set; }
-        
+
         internal void TryExtend(Selector targetSelector)
         {
             var searchNode = this as Node;
@@ -63,37 +63,34 @@ namespace Crass.Ast
 
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out DirectiveAssignment directive)
+        internal static bool TryParse(Node parent, Queue<string> remainingWords, out ExtendDirective directive)
         {
             directive = null;
-            if (!remainingWords.Peek().StartsWith("@"))
+            if (remainingWords.Peek() != "@extend")
             {
                 return false;
             }
 
-            directive = new DirectiveAssignment(parent);
+            directive = new ExtendDirective(parent);
             directive.Name = remainingWords.Dequeue().Substring(1);
 
-            Selector selector;
-            if (Selector.TryParse(directive, remainingWords, out selector))
+
+            Expression expression;
+            if (!Expression.TryParse(directive, remainingWords, out expression))
             {
-                directive.Value = selector;
+                throw new Exception("errp?");
             }
-            else
+            // remove ';'
+            if (remainingWords.Peek() == ";")
             {
-                Expression expression;
-                if (!Expression.TryParse(directive, remainingWords, out expression))
-                {
-                    return false;
-                }
-                // remove ';'
                 remainingWords.Dequeue();
-                directive.Value = expression;
             }
+            directive.Value = expression;
+
 
             return true;
         }
 
-        
+
     }
 }
