@@ -14,6 +14,10 @@ namespace Crass.Ast
 
         public string Text { get; set; }
 
+        internal override void Emit(StringBuilder output)
+        {
+            output.Append(Text);
+        }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
