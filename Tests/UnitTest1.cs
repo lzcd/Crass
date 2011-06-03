@@ -129,7 +129,7 @@ li {
   font-weight: bold;
 }
 
-#data td, 
+#data td,
 #data th {
   padding: 2px;
 }
