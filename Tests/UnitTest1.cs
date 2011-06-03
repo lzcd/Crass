@@ -123,11 +123,14 @@ li {
   float: left;
   margin-left: 10px;
 }
+
 #data th {
   text-align: center;
   font-weight: bold;
 }
-#data td, #data th {
+
+#data td, 
+#data th {
   padding: 2px;
 }
 
