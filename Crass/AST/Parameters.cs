@@ -30,7 +30,8 @@ namespace Crass.Ast
 
         internal static bool TryParse(Node parent, Queue<string> remainingWords, out Parameters parameters)
         {
-            if (remainingWords.Peek() != "(")
+            if (remainingWords.Count == 0 ||
+                remainingWords.Peek() != "(")
             {
                 parameters = null;
                 return false;

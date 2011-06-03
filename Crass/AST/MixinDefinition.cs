@@ -10,10 +10,10 @@ namespace Crass.Ast
         public MixinDefinition(Node parent)
             : base(parent)
         {
-            Names = new List<string>();
+           
         }
 
-        public List<string> Names { get; private set; }
+        public Expression Name { get; private set; }
         public Parameters Parameters { get; private set; }
         public Node Value { get; set; }
         
@@ -45,18 +45,31 @@ namespace Crass.Ast
             remainingWords.Dequeue();
 
 
-            while (remainingWords.Peek() != "{" &&
-                remainingWords.Peek() != "(")
+            //while (remainingWords.Peek() != "{" &&
+            //    remainingWords.Peek() != "(")
+            //{
+            //    definition.Names.Add(remainingWords.Dequeue());
+            //}
+
+            //Parameters parameters;
+            //if (Parameters.TryParse(definition, remainingWords, out parameters))
+            //{
+            //    definition.Parameters = parameters;
+            //}
+
+            var remainingNameWords = new Queue<string>();
+            while (remainingWords.Peek() != "{")
             {
-                definition.Names.Add(remainingWords.Dequeue());
+                remainingNameWords.Enqueue(remainingWords.Dequeue());
             }
 
-            Parameters parameters;
-            if (Parameters.TryParse(definition, remainingWords, out parameters))
+            Expression name;
+            if (!Expression.TryParse(definition, remainingNameWords, out name))
             {
-                definition.Parameters = parameters;
+                throw new Exception("errp?");
             }
-
+            definition.Name = name;
+ 
             Block block;
             if (!Block.TryParse(definition, remainingWords, out block))
             {

@@ -12,11 +12,12 @@ namespace Crass.Ast
         {
         }
 
-        public Node Value { get; set; }
+        public Node Name { get; set; }
 
 
         internal void TryInclude(MixinDefinition definition)
         {
+
         }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
@@ -26,9 +27,9 @@ namespace Crass.Ast
                 matching.Add(this);
             }
 
-            if (Value != null)
+            if (Name != null)
             {
-                Value.Find(criteria, matching);
+                Name.Find(criteria, matching);
             }
 
         }
@@ -56,7 +57,7 @@ namespace Crass.Ast
             {
                 remainingWords.Dequeue();
             }
-            directive.Value = expression;
+            directive.Name = expression;
 
 
             return true;

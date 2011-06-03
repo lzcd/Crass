@@ -29,7 +29,8 @@ namespace Crass.Ast
 
         internal static bool TryParse(Node parent, Queue<string> remainingWords, out MethodCall methodCall)
         {
-            if (remainingWords.Skip(1).First() != "(")
+            if (remainingWords.Count < 2 ||
+                remainingWords.Skip(1).First() != "(")
             {
                 methodCall = null;
                 return false;
