@@ -10,12 +10,19 @@ namespace Crass.Ast
         public MixinDefinition(Node parent)
             : base(parent)
         {
-           
+
         }
 
         public Expression Name { get; private set; }
         public Node Value { get; set; }
-        
+
+        public override Node Clone(Node newParent)
+        {
+            var newDefinition = new MixinDefinition(newParent);
+            newDefinition.Name = (Expression)Name.Clone(newDefinition);
+            newDefinition.Value = Value.Clone(newDefinition);
+            return newDefinition;
+        }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
@@ -55,7 +62,7 @@ namespace Crass.Ast
                 throw new Exception("errp?");
             }
             definition.Name = name;
- 
+
             Block block;
             if (!Block.TryParse(definition, remainingWords, out block))
             {
@@ -65,6 +72,6 @@ namespace Crass.Ast
             return true;
         }
 
-        
+
     }
 }

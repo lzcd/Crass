@@ -21,7 +21,7 @@ namespace Crass.Ast
             MethodCall mixinSignature;
             if (TryMatchMethodCalls(definition, out includeMethodCall, out mixinSignature))
             {
-
+                
             }
         }
 
@@ -53,6 +53,13 @@ namespace Crass.Ast
             }
 
             return true;
+        }
+
+        public override Node Clone(Node newParent)
+        {
+            var newDirective = new IncludeDirective(newParent);
+            newDirective.Name = (Expression)Name.Clone(newDirective);
+            return newDirective;
         }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)

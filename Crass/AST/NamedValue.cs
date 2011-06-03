@@ -19,6 +19,11 @@ namespace Crass.Ast
             output.Append(Text);
         }
 
+        public override Node Clone(Node newParent)
+        {
+            return new NamedValue(newParent) { Text = Text };
+        }
+
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
             if (criteria(this))

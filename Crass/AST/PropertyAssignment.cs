@@ -15,6 +15,14 @@ namespace Crass.Ast
         public string Name { get; set; }
         public Node Value { get; set; }
 
+        public override Node Clone(Node newParent)
+        {
+            var newAssignment = new PropertyAssignment(newParent);
+            newAssignment.Name = Name;
+            newAssignment.Value = Value.Clone(newAssignment);
+            return newAssignment;
+        }
+
         internal override void Emit(StringBuilder output)
         {
             if (Value is Block)

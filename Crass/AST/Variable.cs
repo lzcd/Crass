@@ -14,6 +14,11 @@ namespace Crass.Ast
 
         public string Name { get; set; }
 
+        public override Node Clone(Node newParent)
+        {
+            return new Variable(newParent) { Name = Name };
+        }
+
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
             if (criteria(this))

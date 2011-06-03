@@ -15,6 +15,16 @@ namespace Crass.Ast
             Children = new List<Node>();
         }
 
+        public override Node Clone(Node newParent)
+        {
+            var newExpression = new Expression(newParent);
+            foreach (var child in Children)
+            {
+                newExpression.Children.Add(child.Clone(newExpression));
+            }
+            return newExpression;
+        }
+
         internal override void Emit(StringBuilder output)
         {
             bool isFirst = true;

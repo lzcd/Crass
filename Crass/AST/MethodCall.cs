@@ -16,6 +16,13 @@ namespace Crass.Ast
 
         public Parameters Parameters { get; set; }
 
+        public override Node Clone(Node newParent)
+        {
+            var newMethodCall = new MethodCall(newParent);
+            newMethodCall.Name = Name;
+            newMethodCall.Parameters = (Parameters)Parameters.Clone(newMethodCall);
+            return newMethodCall;
+        }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
@@ -46,11 +53,11 @@ namespace Crass.Ast
                 return false;
             }
 
-             methodCall.Parameters = parameters;
-            
+            methodCall.Parameters = parameters;
+
             return true;
         }
 
-       
+
     }
 }

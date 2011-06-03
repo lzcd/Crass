@@ -15,6 +15,16 @@ namespace Crass.Ast
             Children = new List<Node>();
         }
 
+        public override Node Clone(Node newParent)
+        {
+            var newParameters = new Parameters(newParent);
+            foreach (var child in Children)
+            {
+                newParameters.Children.Add(child.Clone(newParameters));
+            }
+            return newParameters;
+        }
+
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
             if (criteria(this))

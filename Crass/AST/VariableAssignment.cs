@@ -15,6 +15,14 @@ namespace Crass.Ast
         public string Name { get; set; }
         public Expression Expression { get; set; }
 
+        public override Node Clone(Node newParent)
+        {
+            var newAssignment = new VariableAssignment(newParent);
+            newAssignment.Name = Name;
+            newAssignment.Expression = (Expression)Expression.Clone(newAssignment);
+            return newAssignment;
+        }
+
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
             if (criteria(this))
@@ -43,7 +51,7 @@ namespace Crass.Ast
             }
             // remove ';'
             remainingWords.Dequeue();
-            assignment.Expression = expression ;
+            assignment.Expression = expression;
             return true;
         }
 

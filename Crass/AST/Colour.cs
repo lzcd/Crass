@@ -14,9 +14,15 @@ namespace Crass.Ast
 
         public string Text { get; set; }
 
+        
         internal override void Emit(StringBuilder output)
         {
             output.Append(Text);
+        }
+
+        public override Node Clone(Node newParent)
+        {
+            return new Colour(newParent) { Text = Text };
         }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)

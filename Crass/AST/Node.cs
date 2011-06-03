@@ -16,6 +16,7 @@ namespace Crass.Ast
 
 
         public abstract void Find(Func<Node, bool> criteria, List<Node> matching);
+        public abstract Node Clone(Node newParent);
 
         internal virtual void Emit(StringBuilder output)
         {

@@ -15,7 +15,16 @@ namespace Crass.Ast
             Children = new List<Node>();
         }
 
-       
+        public override Node Clone(Node newParent)
+        {
+            var newBlock = new Block(newParent);
+            foreach (var child in Children)
+            {
+                newBlock.Children.Add(child.Clone(newBlock));
+            }
+
+            return newBlock;
+        }
 
         internal override void Emit(StringBuilder output)
         {

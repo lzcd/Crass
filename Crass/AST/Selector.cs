@@ -16,6 +16,14 @@ namespace Crass.Ast
             Names = new List<string>();
         }
 
+        public override Node Clone(Node newParent)
+        {
+            var newSelector = new Selector(newParent);
+            newSelector.Names = new List<string>(Names);
+            newSelector.Block = (Block)Block.Clone(newSelector);
+            return newSelector;
+        }
+
         internal override void Emit(StringBuilder output)
         {
             var searchNode = this as Node;
@@ -91,7 +99,7 @@ namespace Crass.Ast
                 selector = null;
                 return false;
             }
-            
+
             selector = new Selector(parent);
             while (remainingWords.Peek() != "{")
             {

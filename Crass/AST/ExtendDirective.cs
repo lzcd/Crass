@@ -63,6 +63,14 @@ namespace Crass.Ast
 
         }
 
+        public override Node Clone(Node newParent)
+        {
+            var newDirective = new ExtendDirective(newParent);
+            newDirective.Name = Name;
+            newDirective.Value = Value.Clone(newDirective);
+            return newDirective;
+        }
+
         internal static bool TryParse(Node parent, Queue<string> remainingWords, out ExtendDirective directive)
         {
             directive = null;
