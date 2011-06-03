@@ -21,7 +21,14 @@ namespace Crass.Ast
             MethodCall mixinSignature;
             if (TryMatchMethodCalls(definition, out includeMethodCall, out mixinSignature))
             {
-                
+                var targetBlock = Parent as Block;
+                var sourceBlock = definition.Value as Block;
+                foreach (var child in sourceBlock.Children)
+                {
+                    var newChild = child.Clone(targetBlock);
+                    targetBlock.Children.Add(newChild);
+                }
+               
             }
         }
 
