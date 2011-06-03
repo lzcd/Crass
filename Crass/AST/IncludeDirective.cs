@@ -28,7 +28,34 @@ namespace Crass.Ast
                     var newChild = child.Clone(targetBlock);
                     targetBlock.Children.Add(newChild);
                 }
-               
+
+                var enumerator = new LineDanceEnumerator(
+                                        mixinSignature.Parameters.Children,
+                                        includeMethodCall.Parameters.Children);
+
+                while (enumerator.MoveNext())
+                {
+                    var currents = enumerator.Currents;
+                    
+                    var mixinParameterExpression = currents.First() as Expression;
+                    var mixinVariable = mixinParameterExpression.Children.First() as Variable;
+
+                    var methodArgumentExpression = currents.Skip(1).First() as Expression;
+                    var argumentValue = methodArgumentExpression.Children.First();
+
+                    var variableReferences = new List<Node>();
+                    targetBlock.Find(n => (n is Variable && 
+                        ((Variable)n).Name == mixinVariable.Name), 
+                        variableReferences);
+
+                    foreach (var variableReference in variableReferences)
+                    {
+                        var variableContainer = variableReference.Parent as Expression;
+                        var variableOrdinal = variableContainer.Children.IndexOf(variableReference);
+                        var newValue = argumentValue.Clone(variableContainer);
+                        variableContainer.Children[variableOrdinal] = newValue;
+                    }
+                }
             }
 
             NamedValue includeName;

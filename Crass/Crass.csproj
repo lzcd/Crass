@@ -58,6 +58,7 @@
     <Compile Include="Ast\VariableAssignment.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Host.cs" />
+    <Compile Include="LineDanceEnumerator.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
