@@ -14,7 +14,6 @@ namespace Crass.Ast
         }
 
         public Expression Name { get; private set; }
-        public Parameters Parameters { get; private set; }
         public Node Value { get; set; }
         
 
@@ -43,19 +42,6 @@ namespace Crass.Ast
             definition = new MixinDefinition(parent);
             // remove '@mixin'
             remainingWords.Dequeue();
-
-
-            //while (remainingWords.Peek() != "{" &&
-            //    remainingWords.Peek() != "(")
-            //{
-            //    definition.Names.Add(remainingWords.Dequeue());
-            //}
-
-            //Parameters parameters;
-            //if (Parameters.TryParse(definition, remainingWords, out parameters))
-            //{
-            //    definition.Parameters = parameters;
-            //}
 
             var remainingNameWords = new Queue<string>();
             while (remainingWords.Peek() != "{")

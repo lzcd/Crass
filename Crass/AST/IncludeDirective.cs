@@ -12,12 +12,12 @@ namespace Crass.Ast
         {
         }
 
-        public Node Name { get; set; }
+        public Expression Name { get; set; }
 
 
         internal void TryInclude(MixinDefinition definition)
         {
-
+            
         }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
