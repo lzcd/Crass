@@ -14,7 +14,10 @@ namespace Crass.Ast
 
         public Node Value { get; set; }
 
-       
+
+        internal void TryInclude(MixinDefinition definition)
+        {
+        }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
@@ -60,5 +63,7 @@ namespace Crass.Ast
         }
 
 
+
+       
     }
 }
