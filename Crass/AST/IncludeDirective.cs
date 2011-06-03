@@ -17,7 +17,42 @@ namespace Crass.Ast
 
         internal void TryInclude(MixinDefinition definition)
         {
-            
+            MethodCall includeMethodCall;
+            MethodCall mixinSignature;
+            if (TryMatchMethodCalls(definition, out includeMethodCall, out mixinSignature))
+            {
+
+            }
+        }
+
+        private bool TryMatchMethodCalls(
+            MixinDefinition definition, 
+            out MethodCall includeMethodCall, 
+            out MethodCall mixinSignature)
+        {
+            includeMethodCall = Name.Children.First() as MethodCall;
+            if (includeMethodCall == null)
+            {
+                includeMethodCall = null;
+                mixinSignature = null;
+                return false;
+            }
+            mixinSignature = definition.Name.Children.First() as MethodCall;
+            if (mixinSignature == null)
+            {
+                includeMethodCall = null;
+                mixinSignature = null;
+                return false;
+            }
+
+            if (includeMethodCall.Name != mixinSignature.Name)
+            {
+                includeMethodCall = null;
+                mixinSignature = null;
+                return false;
+            }
+
+            return true;
         }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
