@@ -30,6 +30,50 @@ namespace Crass.Ast
                 }
                
             }
+
+            NamedValue includeName;
+            NamedValue mixinName;
+            if (TryMatchNamedValues(definition, out includeName, out mixinName))
+            {
+                var targetBlock = Parent as Block;
+                var sourceBlock = definition.Value as Block;
+                foreach (var child in sourceBlock.Children)
+                {
+                    var newChild = child.Clone(targetBlock);
+                    targetBlock.Children.Add(newChild);
+                }
+
+            }
+        }
+
+        private bool TryMatchNamedValues(
+            MixinDefinition definition,
+            out NamedValue includeName,
+            out NamedValue mixinName)
+        {
+            includeName = Name.Children.First() as NamedValue;
+            if (includeName == null)
+            {
+                includeName = null;
+                mixinName = null;
+                return false;
+            }
+            mixinName = definition.Name.Children.First() as NamedValue;
+            if (mixinName == null)
+            {
+                includeName = null;
+                mixinName = null;
+                return false;
+            }
+
+            if (includeName.Text != mixinName.Text)
+            {
+                includeName = null;
+                mixinName = null;
+                return false;
+            }
+
+            return true;
         }
 
         private bool TryMatchMethodCalls(

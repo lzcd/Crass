@@ -18,18 +18,20 @@ namespace Crass
 
             var context = new Context() { TryCallMethod = methodCallHandler };
 
-            var selectors = new List<Node>();
-            script.Find(n => (n is Selector), selectors);
+           
 
             Include(script);
 
-            Extend(script, selectors);
+            Extend(script);
 
-            return Emit(selectors);
+            return Emit(script);
         }
 
-        private static string Emit(List<Node> selectors)
+        private static string Emit(Script script)
         {
+            var selectors = new List<Node>();
+            script.Find(n => (n is Selector), selectors);
+
             var output = new StringBuilder();
 
             foreach (var selector in selectors)
@@ -56,8 +58,11 @@ namespace Crass
             }
         }
 
-        private static void Extend(Script script, List<Node> selectors)
+        private static void Extend(Script script)
         {
+            var selectors = new List<Node>();
+            script.Find(n => (n is Selector), selectors);
+
             var extensions = new List<Node>();
             script.Find(n => (n is ExtendDirective), extensions);
 
