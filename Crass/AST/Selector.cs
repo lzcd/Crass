@@ -43,6 +43,15 @@ namespace Crass.Ast
                 var currentSelector = current as Selector;
                 if (currentSelector != null)
                 {
+                    var names = new List<string>(selectorNames);
+                    for (var index = names.Count - 1; index > 0; index--)
+                    {
+                        if (names[index] == ",")
+                        {
+                            selectorNames.InsertRange(index + 1, currentSelector.Names);
+                        }
+                    }
+
                     selectorNames.InsertRange(0, currentSelector.Names);
                 }
                 current = current.Parent;
