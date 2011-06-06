@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Crass.Ast
 {
-    class VariableAssignment : Node
+    class VariableAssignment : Node, IVariableApplicable
     {
         public VariableAssignment(Node parent)
             : base(parent)
@@ -14,12 +14,18 @@ namespace Crass.Ast
 
         public string Name { get; set; }
         public Expression Expression { get; set; }
+        public int SourceLine;
+
+
+        public void Apply(Dictionary<string, Node> valueByName)
+        {
+            valueByName[Name] = Expression;
+        }
 
         public override Node Clone(Node newParent)
         {
-            var newAssignment = new VariableAssignment(newParent);
-            newAssignment.Name = Name;
-            newAssignment.Expression = (Expression)Expression.Clone(newAssignment);
+            var newAssignment = new VariableAssignment(newParent) { Name = Name, SourceLine = SourceLine };
+            newAssignment.Expression = (Expression)Expression.Clone(newAssignment.Expression);
             return newAssignment;
         }
 
@@ -40,8 +46,8 @@ namespace Crass.Ast
             {
                 return false;
             }
-            assignment = new VariableAssignment(parent);
-            assignment.Name = remainingWords.Dequeue().Text;
+            var word = remainingWords.Dequeue();
+            assignment = new VariableAssignment(parent) { Name = word.Text, SourceLine = word.Line };
             // remove ':'
             remainingWords.Dequeue();
             Expression expression;

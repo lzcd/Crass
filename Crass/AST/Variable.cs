@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Crass.Ast
 {
-    class Variable : Node
+    class Variable : Node, IVariableApplicable
     {
         public Variable(Node parent)
             : base(parent)
@@ -13,13 +13,22 @@ namespace Crass.Ast
         }
 
         public string Name { get; set; }
+        public int SourceLine;
 
-        
 
-        
+        public void Apply(Dictionary<string, Node> valueByName)
+        {
+            Node value;
+            if (!valueByName.TryGetValue(Name, out value))
+            {
+                throw new Exception("ooooze nooooze");
+            }
+        }
+
+
         public override Node Clone(Node newParent)
         {
-            return new Variable(newParent) { Name = Name };
+            return new Variable(newParent) { Name = Name, SourceLine = SourceLine };
         }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
@@ -37,15 +46,10 @@ namespace Crass.Ast
                 variable = null;
                 return false;
             }
-            var name = remainingWords.Dequeue();
-            variable = new Variable(parent) { Name = name.Text };
+            var word = remainingWords.Dequeue();
+            variable = new Variable(parent) { Name = word.Text, SourceLine = word.Line };
             return true;
         }
 
-
-
-
-
-      
     }
 }

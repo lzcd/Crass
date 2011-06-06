@@ -24,7 +24,7 @@ namespace Crass
 
             Extend(script);
 
-            Replace(script);
+            ApplyVariableValues(script);
 
             return Emit(script);
         }
@@ -43,21 +43,17 @@ namespace Crass
             return output.ToString();
         }
 
-        private static void Replace(Script script)
+        private static void ApplyVariableValues(Script script)
         {
-            var assignments = new List<Node>();
-            script.Find(n => (n is VariableAssignment), assignments);
+            var nodes = new List<Node>();
+            script.Find(n => (n is IVariableApplicable), nodes);
+            var variableApplicables = nodes.Cast<IVariableApplicable>();
 
-            var references = new List<Node>();
-            script.Find(n => (n is Variable), references);
-
-            //foreach (Variable reference in references)
-            //{
-            //    foreach (VariableAssignment assignment in assignments)
-            //    {
-            //        reference.TryReplace(assignment);
-            //    }
-            //}
+            var valueByName = new Dictionary<string, Node>();
+            foreach (var variableApplicable in variableApplicables)
+            {
+                variableApplicable.Apply(valueByName);
+            }
         }
 
         private static void Include(Script script)
