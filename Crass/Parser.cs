@@ -12,7 +12,7 @@ namespace Crass
         {
             var text = new StringBuilder();
             var words = new List<Word>();
-
+            var line = 0;
             foreach (var c in source)
             {
                 switch (c)
@@ -21,7 +21,8 @@ namespace Crass
                     case '\t':
                     case '\n':
                     case '\r':
-                        Add(text, words);
+                        Add(text, words, line);
+                        line++;
                         break;
                     case ':':
                     case '(':
@@ -30,16 +31,16 @@ namespace Crass
                     case '}':
                     case ',':
                     case ';':
-                        Add(text, words);
+                        Add(text, words, line);
                         Add(c, text);
-                        Add(text, words);
+                        Add(text, words, line);
                         break;
                     default:
                         Add(c, text);
                         break;
                 }
             }
-            Add(text, words);
+            Add(text, words, line);
             return words;
         }
 
@@ -48,11 +49,11 @@ namespace Crass
             word.Append(c);
         }
 
-        private static void Add(StringBuilder word, List<Word> words)
+        private static void Add(StringBuilder word, List<Word> words, int line)
         {
             if (word.Length > 0)
             {
-                words.Add(new Word() { Text = word.ToString() });
+                words.Add(new Word() { Text = word.ToString(), Line = line });
                 word.Clear();
             }
         }
