@@ -13,14 +13,30 @@ namespace Crass.Ast
         }
 
         public string Name { get; set; }
-
         public Parameters Parameters { get; set; }
+        public Node CalculatedValue { get; set; }
+
+        internal void Call(Host.TryCallMethodHandler methodCallHandler)
+        {
+            Node result;
+            if (!methodCallHandler(Name, Parameters, out result))
+            {
+                throw new Exception("wheeeee");
+            }
+        }
+
+
+        internal override void Emit(StringBuilder output)
+        {
+            CalculatedValue.Emit(output);
+        }
 
         public override Node Clone(Node newParent)
         {
             var newMethodCall = new MethodCall(newParent);
             newMethodCall.Name = Name;
             newMethodCall.Parameters = (Parameters)Parameters.Clone(newMethodCall);
+            newMethodCall.CalculatedValue = CalculatedValue.Clone(newParent);
             return newMethodCall;
         }
 
@@ -59,5 +75,7 @@ namespace Crass.Ast
         }
 
 
+
+      
     }
 }

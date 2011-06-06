@@ -8,7 +8,10 @@ namespace Crass
 {
     public class Host
     {
-        public string Execute(string source, Context.TryCallMethodHandler methodCallHandler)
+        public delegate bool TryCallMethodHandler(string name, Parameters parameters, out Node result);
+        public TryCallMethodHandler TryCallMethod { get; set; }
+
+        public string Execute(string source, TryCallMethodHandler methodCallHandler)
         {
             Script script;
             if (!Parser.TryParse(source, out script))
@@ -16,15 +19,10 @@ namespace Crass
                 return null;
             }
 
-            var context = new Context() { TryCallMethod = methodCallHandler };
-
-           
-
             Include(script);
-
             Extend(script);
-
             ApplyVariableValues(script);
+            CallMethods(script, methodCallHandler);
 
             return Emit(script);
         }
@@ -43,18 +41,7 @@ namespace Crass
             return output.ToString();
         }
 
-        private static void ApplyVariableValues(Script script)
-        {
-            var nodes = new List<Node>();
-            script.Find(n => (n is IVariableApplicable), nodes);
-            var variableApplicables = nodes.Cast<IVariableApplicable>();
-
-            var valueByName = new Dictionary<string, Node>();
-            foreach (var variableApplicable in variableApplicables)
-            {
-                variableApplicable.Apply(valueByName);
-            }
-        }
+       
 
         private static void Include(Script script)
         {
@@ -90,7 +77,28 @@ namespace Crass
             }
         }
 
-       
+        private static void ApplyVariableValues(Script script)
+        {
+            var nodes = new List<Node>();
+            script.Find(n => (n is IVariableApplicable), nodes);
+            var variableApplicables = nodes.Cast<IVariableApplicable>();
 
+            var valueByName = new Dictionary<string, Node>();
+            foreach (var variableApplicable in variableApplicables)
+            {
+                variableApplicable.Apply(valueByName);
+            }
+        }
+
+        private static void CallMethods(Script script, TryCallMethodHandler methodCallHandler)
+        {
+            var methodCalls = new List<Node>();
+            script.Find(n => (n is MethodCall), methodCalls);
+
+            foreach (MethodCall methodCall in methodCalls)
+            {
+                methodCall.Call(methodCallHandler);
+            }
+        }
     }
 }

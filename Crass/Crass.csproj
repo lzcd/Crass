@@ -56,7 +56,6 @@
     <Compile Include="Ast\Unit.cs" />
     <Compile Include="Ast\Variable.cs" />
     <Compile Include="Ast\VariableAssignment.cs" />
-    <Compile Include="Context.cs" />
     <Compile Include="Host.cs" />
     <Compile Include="IVariableApplicable.cs" />
     <Compile Include="LineDanceEnumerator.cs" />
