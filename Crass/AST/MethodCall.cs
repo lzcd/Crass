@@ -23,6 +23,10 @@ namespace Crass.Ast
             {
                 throw new Exception("wheeeee");
             }
+
+            var parentExpression = (Expression)Parent;
+            var thisIndex = parentExpression.Children.IndexOf(this);
+            parentExpression.Children[thisIndex] = result.Clone(Parent);
         }
 
 
