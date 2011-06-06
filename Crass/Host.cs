@@ -24,6 +24,8 @@ namespace Crass
 
             Extend(script);
 
+            Replace(script);
+
             return Emit(script);
         }
 
@@ -39,6 +41,23 @@ namespace Crass
                 selector.Emit(output);
             }
             return output.ToString();
+        }
+
+        private static void Replace(Script script)
+        {
+            var assignments = new List<Node>();
+            script.Find(n => (n is VariableAssignment), assignments);
+
+            var references = new List<Node>();
+            script.Find(n => (n is Variable), references);
+
+            //foreach (Variable reference in references)
+            //{
+            //    foreach (VariableAssignment assignment in assignments)
+            //    {
+            //        reference.TryReplace(assignment);
+            //    }
+            //}
         }
 
         private static void Include(Script script)

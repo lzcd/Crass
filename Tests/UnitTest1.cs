@@ -44,12 +44,14 @@ $margin: 16px;
   border-color: #3bbfce;
 }
 ";
-            //var result = host.Execute(source,
-            //    (string name, Parameters parameters, out Node node) =>
-            //    {
-            //        node = new Colour(parameters.Parent) { Text = "#2b9eab" };
-            //        return true;
-            //    });
+            var result = host.Execute(source,
+                (string name, Parameters parameters, out Node node) =>
+                {
+                    node = new Colour(parameters.Parent) { Text = "#2b9eab" };
+                    return true;
+                });
+
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]

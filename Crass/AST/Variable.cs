@@ -14,6 +14,9 @@ namespace Crass.Ast
 
         public string Name { get; set; }
 
+        
+
+        
         public override Node Clone(Node newParent)
         {
             return new Variable(newParent) { Name = Name };
@@ -39,6 +42,10 @@ namespace Crass.Ast
             return true;
         }
 
-       
+
+
+
+
+      
     }
 }
