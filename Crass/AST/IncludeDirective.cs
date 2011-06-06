@@ -154,10 +154,10 @@ namespace Crass.Ast
 
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out IncludeDirective directive)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out IncludeDirective directive)
         {
             directive = null;
-            if (remainingWords.Peek() != "@include")
+            if (remainingWords.Peek().Text != "@include")
             {
                 return false;
             }
@@ -173,7 +173,7 @@ namespace Crass.Ast
                 throw new Exception("errp?");
             }
             // remove ';'
-            if (remainingWords.Peek() == ";")
+            if (remainingWords.Peek().Text == ";")
             {
                 remainingWords.Dequeue();
             }

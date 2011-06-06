@@ -38,10 +38,10 @@ namespace Crass.Ast
 
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out MixinDefinition definition)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out MixinDefinition definition)
         {
             definition = null;
-            if (remainingWords.Peek() != "@mixin")
+            if (remainingWords.Peek().Text != "@mixin")
             {
                 return false;
             }
@@ -50,8 +50,8 @@ namespace Crass.Ast
             // remove '@mixin'
             remainingWords.Dequeue();
 
-            var remainingNameWords = new Queue<string>();
-            while (remainingWords.Peek() != "{")
+            var remainingNameWords = new Queue<Word>();
+            while (remainingWords.Peek().Text != "{")
             {
                 remainingNameWords.Enqueue(remainingWords.Dequeue());
             }

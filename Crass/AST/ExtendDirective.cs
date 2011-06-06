@@ -71,16 +71,16 @@ namespace Crass.Ast
             return newDirective;
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out ExtendDirective directive)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out ExtendDirective directive)
         {
             directive = null;
-            if (remainingWords.Peek() != "@extend")
+            if (remainingWords.Peek().Text != "@extend")
             {
                 return false;
             }
 
             directive = new ExtendDirective(parent);
-            directive.Name = remainingWords.Dequeue().Substring(1);
+            directive.Name = remainingWords.Dequeue().Text.Substring(1);
 
 
             Expression expression;
@@ -89,7 +89,7 @@ namespace Crass.Ast
                 throw new Exception("errp?");
             }
             // remove ';'
-            if (remainingWords.Peek() == ";")
+            if (remainingWords.Peek().Text == ";")
             {
                 remainingWords.Dequeue();
             }

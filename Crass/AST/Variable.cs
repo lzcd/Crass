@@ -30,15 +30,15 @@ namespace Crass.Ast
             }
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Variable variable)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out Variable variable)
         {
-            if (!remainingWords.Peek().StartsWith("$"))
+            if (!remainingWords.Peek().Text.StartsWith("$"))
             {
                 variable = null;
                 return false;
             }
             var name = remainingWords.Dequeue();
-            variable = new Variable(parent) { Name = name };
+            variable = new Variable(parent) { Name = name.Text };
             return true;
         }
 

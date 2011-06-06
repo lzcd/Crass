@@ -56,14 +56,14 @@ namespace Crass.Ast
             }
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Expression expression)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out Expression expression)
         {
             expression = new Expression(parent);
             while (remainingWords.Count > 0 &&
-                    remainingWords.Peek() != ";" &&
-                   remainingWords.Peek() != "," &&
-                   remainingWords.Peek() != ")" &&
-                   remainingWords.Peek() != "}")
+                    remainingWords.Peek().Text != ";" &&
+                   remainingWords.Peek().Text != "," &&
+                   remainingWords.Peek().Text != ")" &&
+                   remainingWords.Peek().Text != "}")
             {
                 Variable variable;
                 if (Variable.TryParse(expression, remainingWords, out variable))
@@ -95,7 +95,7 @@ namespace Crass.Ast
 
                 if (remainingWords.Count > 0)
                 {
-                    var namedValue = new NamedValue(expression) { Text = remainingWords.Dequeue() };
+                    var namedValue = new NamedValue(expression) { Text = remainingWords.Dequeue().Text };
                     expression.Children.Add(namedValue);
                 }
             }

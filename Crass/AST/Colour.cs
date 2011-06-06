@@ -33,15 +33,15 @@ namespace Crass.Ast
             }
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Colour colour)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out Colour colour)
         {
-            if (!remainingWords.Peek().StartsWith("#"))
+            if (!remainingWords.Peek().Text.StartsWith("#"))
             {
                 colour = null;
                 return false;
             }
-            var text = remainingWords.Dequeue();
-            colour = new Colour(parent) { Text = text };
+            var word = remainingWords.Dequeue();
+            colour = new Colour(parent) { Text = word.Text };
             return true;
         }
 

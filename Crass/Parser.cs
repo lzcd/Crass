@@ -8,10 +8,10 @@ namespace Crass
 {
     class Parser
     {
-        public static List<string> ToWords(string source)
+        public static List<Word> ToWords(string source)
         {
-            var word = new StringBuilder();
-            var words = new List<string>();
+            var text = new StringBuilder();
+            var words = new List<Word>();
 
             foreach (var c in source)
             {
@@ -21,7 +21,7 @@ namespace Crass
                     case '\t':
                     case '\n':
                     case '\r':
-                        Add(word, words);
+                        Add(text, words);
                         break;
                     case ':':
                     case '(':
@@ -30,16 +30,16 @@ namespace Crass
                     case '}':
                     case ',':
                     case ';':
-                        Add(word, words);
-                        Add(c, word);
-                        Add(word, words);
+                        Add(text, words);
+                        Add(c, text);
+                        Add(text, words);
                         break;
                     default:
-                        Add(c, word);
+                        Add(c, text);
                         break;
                 }
             }
-            Add(word, words);
+            Add(text, words);
             return words;
         }
 
@@ -48,11 +48,11 @@ namespace Crass
             word.Append(c);
         }
 
-        private static void Add(StringBuilder word, List<string> words)
+        private static void Add(StringBuilder word, List<Word> words)
         {
             if (word.Length > 0)
             {
-                words.Add(word.ToString());
+                words.Add(new Word() { Text = word.ToString() });
                 word.Clear();
             }
         }
@@ -60,7 +60,7 @@ namespace Crass
         internal static bool TryParse(string source, out Script script)
         {
             var words = Parser.ToWords(source);
-            var remainingWords = new Queue<string>(words);
+            var remainingWords = new Queue<Word>(words);
             
             if (Script.TryParse(null, remainingWords, out script))
             {

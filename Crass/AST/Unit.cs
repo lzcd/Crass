@@ -32,16 +32,16 @@ namespace Crass.Ast
             }
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Unit unit)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out Unit unit)
         {
             int firstDigit;
-            if (!int.TryParse(remainingWords.Peek().Substring(0,1), out firstDigit))
+            if (!int.TryParse(remainingWords.Peek().Text.Substring(0,1), out firstDigit))
             {
                 unit = null;
                 return false;
             }
             var text = remainingWords.Dequeue();
-            unit = new Unit(parent) { Text = text };
+            unit = new Unit(parent) { Text = text.Text };
             return true;
         }
 

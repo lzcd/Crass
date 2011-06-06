@@ -62,9 +62,9 @@ namespace Crass.Ast
             }
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Block block)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out Block block)
         {
-            if (remainingWords.Peek() != "{")
+            if (remainingWords.Peek().Text != "{")
             {
                 block = null;
                 return false;
@@ -72,7 +72,7 @@ namespace Crass.Ast
             remainingWords.Dequeue();
 
             block = new Block(parent);
-            while (remainingWords.Peek() != "}")
+            while (remainingWords.Peek().Text != "}")
             {
                 IncludeDirective includeDirective;
                 if (IncludeDirective.TryParse(block, remainingWords, out includeDirective))

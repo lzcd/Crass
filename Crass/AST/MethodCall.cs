@@ -34,10 +34,10 @@ namespace Crass.Ast
             Parameters.Find(criteria, matching);
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out MethodCall methodCall)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out MethodCall methodCall)
         {
             if (remainingWords.Count < 2 ||
-                remainingWords.Skip(1).First() != "(")
+                remainingWords.Skip(1).First().Text != "(")
             {
                 methodCall = null;
                 return false;
@@ -45,7 +45,7 @@ namespace Crass.Ast
 
             methodCall = new MethodCall(parent);
 
-            methodCall.Name = remainingWords.Dequeue();
+            methodCall.Name = remainingWords.Dequeue().Text;
             Parameters parameters;
             if (!Parameters.TryParse(methodCall, remainingWords, out parameters))
             {

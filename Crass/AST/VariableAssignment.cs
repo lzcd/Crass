@@ -33,15 +33,15 @@ namespace Crass.Ast
             Expression.Find(criteria, matching);
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out VariableAssignment assignment)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out VariableAssignment assignment)
         {
             assignment = null;
-            if (!remainingWords.Peek().StartsWith("$"))
+            if (!remainingWords.Peek().Text.StartsWith("$"))
             {
                 return false;
             }
             assignment = new VariableAssignment(parent);
-            assignment.Name = remainingWords.Dequeue();
+            assignment.Name = remainingWords.Dequeue().Text;
             // remove ':'
             remainingWords.Dequeue();
             Expression expression;

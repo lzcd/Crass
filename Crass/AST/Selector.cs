@@ -91,12 +91,12 @@ namespace Crass.Ast
             Block.Find(criteria, matching);
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Selector selector)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out Selector selector)
         {
             var openingBraceFound = false;
             foreach (var word in remainingWords)
             {
-                if (word == "{")
+                if (word.Text == "{")
                 {
                     openingBraceFound = true;
                     break;
@@ -110,9 +110,9 @@ namespace Crass.Ast
             }
 
             selector = new Selector(parent);
-            while (remainingWords.Peek() != "{")
+            while (remainingWords.Peek().Text != "{")
             {
-                selector.Names.Add(remainingWords.Dequeue());
+                selector.Names.Add(remainingWords.Dequeue().Text);
             }
             Block block;
             if (!Block.TryParse(selector, remainingWords, out block))

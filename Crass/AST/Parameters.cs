@@ -38,10 +38,10 @@ namespace Crass.Ast
             }
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Parameters parameters)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out Parameters parameters)
         {
             if (remainingWords.Count == 0 ||
-                remainingWords.Peek() != "(")
+                remainingWords.Peek().Text != "(")
             {
                 parameters = null;
                 return false;
@@ -49,9 +49,9 @@ namespace Crass.Ast
             remainingWords.Dequeue();
 
             parameters = new Parameters(parent);
-            while (remainingWords.Peek() != ")")
+            while (remainingWords.Peek().Text != ")")
             {
-                if (remainingWords.Peek() == ",")
+                if (remainingWords.Peek().Text == ",")
                 {
                     remainingWords.Dequeue();
                     continue;

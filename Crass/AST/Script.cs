@@ -40,7 +40,7 @@ namespace Crass.Ast
 
 
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out Script script)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out Script script)
         {
             script = new Script(parent);
 

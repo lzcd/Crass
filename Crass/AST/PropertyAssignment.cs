@@ -68,16 +68,16 @@ namespace Crass.Ast
             Value.Find(criteria, matching);
         }
 
-        internal static bool TryParse(Node parent, Queue<string> remainingWords, out PropertyAssignment property)
+        internal static bool TryParse(Node parent, Queue<Word> remainingWords, out PropertyAssignment property)
         {
-            if (remainingWords.Skip(1).First() != ":")
+            if (remainingWords.Skip(1).First().Text != ":")
             {
                 property = null;
                 return false;
             }
 
             property = new PropertyAssignment(parent);
-            property.Name = remainingWords.Dequeue();
+            property.Name = remainingWords.Dequeue().Text;
             // remove ':'
             remainingWords.Dequeue();
 
@@ -92,7 +92,7 @@ namespace Crass.Ast
             {
                 property.Value = expression;
                 // remove ';'
-                if (remainingWords.Peek() == ";")
+                if (remainingWords.Peek().Text == ";")
                 {
                     remainingWords.Dequeue();
                 }
