@@ -25,8 +25,16 @@ namespace Crass.Ast
             }
 
             var parentExpression = (Expression)Parent;
-            var selfIndex = parentExpression.Children.IndexOf(this);
-            parentExpression.Children[selfIndex] = value.Clone(Parent);
+            var insertIndex = parentExpression.Children.IndexOf(this);
+            var valueExpression = (Expression)value;
+
+            parentExpression.Children.RemoveAt(insertIndex);
+            foreach (var node in valueExpression.Children)
+            {
+                parentExpression.Children.Insert(insertIndex, node.Clone(Parent));
+                insertIndex++;
+            }
+
         }
 
 
