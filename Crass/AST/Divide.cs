@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Crass.Ast
 {
-    class Divide : Node
+    class Divide : Node, IOperator
     {
         public Divide(Node parent)
             : base(parent)

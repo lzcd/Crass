@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Crass.Ast
 {
-    class Subtract : Node
+    class Subtract : Node, IOperator
     {
         public Subtract(Node parent)
             : base(parent)

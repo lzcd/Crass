@@ -45,6 +45,7 @@
     <Compile Include="Ast\Colour.cs" />
     <Compile Include="Ast\Divide.cs" />
     <Compile Include="Ast\IncludeDirective.cs" />
+    <Compile Include="Ast\IOperator.cs" />
     <Compile Include="Ast\MixinDefinition.cs" />
     <Compile Include="Ast\ExtendDirective.cs" />
     <Compile Include="Ast\Multiply.cs" />

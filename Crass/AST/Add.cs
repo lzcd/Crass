@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Crass.Ast
 {
-    class Add : Node
+    class Add : Node, IOperator
     {
         public Add(Node parent)
             : base(parent)

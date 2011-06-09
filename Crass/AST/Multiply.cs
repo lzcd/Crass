@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Crass.Ast
 {
-    class Multiply : Node
+    class Multiply : Node, IOperator
     {
         public Multiply(Node parent)
             : base(parent)
