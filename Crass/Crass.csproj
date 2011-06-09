@@ -40,11 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ast\Add.cs" />
     <Compile Include="Ast\Block.cs" />
     <Compile Include="Ast\Colour.cs" />
+    <Compile Include="Ast\Divide.cs" />
     <Compile Include="Ast\IncludeDirective.cs" />
     <Compile Include="Ast\MixinDefinition.cs" />
     <Compile Include="Ast\ExtendDirective.cs" />
+    <Compile Include="Ast\Multiply.cs" />
     <Compile Include="Ast\Parameters.cs" />
     <Compile Include="Ast\MethodCall.cs" />
     <Compile Include="Ast\NamedValue.cs" />
@@ -53,6 +56,7 @@
     <Compile Include="Ast\Node.cs" />
     <Compile Include="Ast\PropertyAssignment.cs" />
     <Compile Include="Ast\Selector.cs" />
+    <Compile Include="Ast\Subtract.cs" />
     <Compile Include="Ast\Unit.cs" />
     <Compile Include="Ast\Variable.cs" />
     <Compile Include="Ast\VariableAssignment.cs" />
