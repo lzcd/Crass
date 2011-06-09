@@ -7,5 +7,6 @@ namespace Crass.Ast
 {
     interface IOperator
     {
+        void Operate();
     }
 }

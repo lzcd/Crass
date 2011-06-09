@@ -23,9 +23,11 @@ namespace Crass
             Extend(script);
             ApplyVariableValues(script);
             CallMethods(script, methodCallHandler);
-
+            ApplyOperators(script);
             return Emit(script);
         }
+
+       
 
         private static string Emit(Script script)
         {
@@ -41,7 +43,16 @@ namespace Crass
             return output.ToString();
         }
 
-       
+        private void ApplyOperators(Script script)
+        {
+            var ops = new List<Node>();
+            script.Find(n => (n is IOperator), ops);
+
+            foreach (IOperator op in ops)
+            {
+                op.Operate();
+            }
+        }
 
         private static void Include(Script script)
         {

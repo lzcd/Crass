@@ -12,6 +12,15 @@ namespace Crass.Ast
         {
         }
 
+        public void Operate()
+        {
+            var expressionParent = (Expression)Parent;
+            var operatorIndex = expressionParent.Children.IndexOf(this);
+            var a = expressionParent.Children[operatorIndex - 1];
+            var b = expressionParent.Children[operatorIndex + 1];
+
+        }
+
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
         {
             if (criteria(this))
