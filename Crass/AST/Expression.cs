@@ -65,6 +65,30 @@ namespace Crass.Ast
                    remainingWords.Peek().Text != ")" &&
                    remainingWords.Peek().Text != "}")
             {
+                Add add;
+                if (Add.TryParse(expression, remainingWords, out add))
+                {
+                    expression.Children.Add(add);
+                }
+
+                Subtract subtract;
+                if (Subtract.TryParse(expression, remainingWords, out subtract))
+                {
+                    expression.Children.Add(subtract);
+                }
+                
+                Multiply multiply;
+                if (Multiply.TryParse(expression, remainingWords, out multiply))
+                {
+                    expression.Children.Add(multiply);
+                }
+                 
+                Divide divide;
+                if (Divide.TryParse(expression, remainingWords, out divide))
+                {
+                    expression.Children.Add(divide);
+                }
+
                 Variable variable;
                 if (Variable.TryParse(expression, remainingWords, out variable))
                 {
