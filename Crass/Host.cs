@@ -76,6 +76,7 @@ namespace Crass
                 var mixinIndex = scriptParent.Children.IndexOf(definition);
                 scriptParent.Children.RemoveAt(mixinIndex);
             }
+
         }
 
         private static void Extend(Script script)
