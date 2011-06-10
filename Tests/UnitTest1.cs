@@ -43,6 +43,7 @@ $margin: 16px;
   margin: 8px;
   border-color: #3bbfce;
 }
+
 ";
             var result = host.Execute(source,
                 (string name, Parameters parameters, out Node node) =>

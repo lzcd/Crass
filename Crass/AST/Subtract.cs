@@ -19,6 +19,15 @@ namespace Crass.Ast
             var a = expressionParent.Children[operatorIndex - 1];
             var b = expressionParent.Children[operatorIndex + 1];
 
+            expressionParent.Children.RemoveRange(operatorIndex - 1, 3);
+
+            if (a is Units && b is Units)
+            {
+                var aUnits = (Units)a;
+                var bUnits = (Units)b;
+                var result = new Units(expressionParent) { Amount = (aUnits.Amount - bUnits.Amount), Unit = aUnits.Unit };
+                expressionParent.Children.Insert(operatorIndex - 1, result);
+            }
         }
 
         public override void Find(Func<Node, bool> criteria, List<Node> matching)
