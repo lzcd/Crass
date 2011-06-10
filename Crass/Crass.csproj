@@ -58,7 +58,7 @@
     <Compile Include="Ast\PropertyAssignment.cs" />
     <Compile Include="Ast\Selector.cs" />
     <Compile Include="Ast\Subtract.cs" />
-    <Compile Include="Ast\Unit.cs" />
+    <Compile Include="Ast\Units.cs" />
     <Compile Include="Ast\Variable.cs" />
     <Compile Include="Ast\VariableAssignment.cs" />
     <Compile Include="Host.cs" />

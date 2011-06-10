@@ -103,8 +103,8 @@ namespace Crass.Ast
                     continue;
                 }
 
-                Unit unit;
-                if (Unit.TryParse(expression, remainingWords, out unit))
+                Units unit;
+                if (Units.TryParse(expression, remainingWords, out unit))
                 {
                     expression.Children.Add(unit);
                     continue;
