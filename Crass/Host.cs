@@ -69,6 +69,13 @@ namespace Crass
                     directive.TryInclude(definition);
                 }
             }
+
+            foreach (var definition in mixinDefintions)
+            {
+                var scriptParent = (Script)definition.Parent;
+                var mixinIndex = scriptParent.Children.IndexOf(definition);
+                scriptParent.Children.RemoveAt(mixinIndex);
+            }
         }
 
         private static void Extend(Script script)
