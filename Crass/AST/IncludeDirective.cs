@@ -21,55 +21,66 @@ namespace Crass.Ast
             MethodCall mixinSignature;
             if (TryMatchMethodCalls(definition, out includeMethodCall, out mixinSignature))
             {
-                var targetBlock = Parent as Block;
-                var sourceBlock = definition.Value as Block;
-                foreach (var child in sourceBlock.Children)
-                {
-                    var newChild = child.Clone(targetBlock);
-                    targetBlock.Children.Add(newChild);
-                }
-
-                var enumerator = new LineDanceEnumerator(
-                                        mixinSignature.Parameters.Children,
-                                        includeMethodCall.Parameters.Children);
-
-                while (enumerator.MoveNext())
-                {
-                    var currents = enumerator.Currents;
-                    
-                    var mixinParameterExpression = currents.First() as Expression;
-                    var mixinVariable = mixinParameterExpression.Children.First() as Variable;
-
-                    var methodArgumentExpression = currents.Skip(1).First() as Expression;
-                    var argumentValue = methodArgumentExpression.Children.First();
-
-                    var variableReferences = new List<Node>();
-                    targetBlock.Find(n => (n is Variable && 
-                        ((Variable)n).Name == mixinVariable.Name), 
-                        variableReferences);
-
-                    foreach (var variableReference in variableReferences)
-                    {
-                        var variableContainer = variableReference.Parent as Expression;
-                        var variableOrdinal = variableContainer.Children.IndexOf(variableReference);
-                        var newValue = argumentValue.Clone(variableContainer);
-                        variableContainer.Children[variableOrdinal] = newValue;
-                    }
-                }
+                ApplyMethodCall(definition, includeMethodCall, mixinSignature);
+                return;
             }
 
             NamedValue includeName;
             NamedValue mixinName;
             if (TryMatchNamedValues(definition, out includeName, out mixinName))
             {
-                var targetBlock = Parent as Block;
-                var sourceBlock = definition.Value as Block;
-                foreach (var child in sourceBlock.Children)
-                {
-                    var newChild = child.Clone(targetBlock);
-                    targetBlock.Children.Add(newChild);
-                }
+                ApplyInclude(definition);
+                return;
+            }
+        }
 
+        private void ApplyMethodCall(MixinDefinition definition, MethodCall includeMethodCall, MethodCall mixinSignature)
+        {
+            var targetBlock = Parent as Block;
+            var sourceBlock = definition.Value as Block;
+            foreach (var child in sourceBlock.Children)
+            {
+                var newChild = child.Clone(targetBlock);
+                targetBlock.Children.Add(newChild);
+            }
+
+            var enumerator = new LineDanceEnumerator(
+                                    mixinSignature.Parameters.Children,
+                                    includeMethodCall.Parameters.Children);
+
+            while (enumerator.MoveNext())
+            {
+                var currents = enumerator.Currents;
+
+                var mixinParameterExpression = currents.First() as Expression;
+                var mixinVariable = mixinParameterExpression.Children.First() as Variable;
+
+                var methodArgumentExpression = currents.Skip(1).First() as Expression;
+                var argumentValue = methodArgumentExpression.Children.First();
+
+                var variableReferences = new List<Node>();
+                targetBlock.Find(n => (n is Variable &&
+                    ((Variable)n).Name == mixinVariable.Name),
+                    variableReferences);
+
+                foreach (var variableReference in variableReferences)
+                {
+                    var variableContainer = variableReference.Parent as Expression;
+                    var variableOrdinal = variableContainer.Children.IndexOf(variableReference);
+                    var newValue = argumentValue.Clone(variableContainer);
+                    variableContainer.Children[variableOrdinal] = newValue;
+                }
+            }
+        }
+
+        private void ApplyInclude(MixinDefinition definition)
+        {
+            var targetBlock = Parent as Block;
+            var sourceBlock = definition.Value as Block;
+            foreach (var child in sourceBlock.Children)
+            {
+                var newChild = child.Clone(targetBlock);
+                targetBlock.Children.Add(newChild);
             }
         }
 

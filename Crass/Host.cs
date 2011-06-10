@@ -77,6 +77,12 @@ namespace Crass
                 scriptParent.Children.RemoveAt(mixinIndex);
             }
 
+            foreach (var directive in includeDirectives)
+            {
+                var blockParent = (Block)directive.Parent;
+                var directiveIndex = blockParent.Children.IndexOf(directive);
+                blockParent.Children.RemoveAt(directiveIndex);
+            }
         }
 
         private static void Extend(Script script)
